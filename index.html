@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="default">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Azota - Ôn tập nhanh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1C3FAA',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        pink: '#EC4899',
+                        blue: '#3B82F6',
+                        purple: '#8B5CF6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary-color: #1C3FAA;
+            --success-color: #10B981;
+            --danger-color: #EF4444;
+            --bg-color: #0f172a;
+            --card-bg: rgba(30,41,59,0.7);
+        }
+        [data-theme="pink"] { --primary-color: #EC4899; }
+        [data-theme="green"] { --primary-color: #10B981; }
+        [data-theme="blue"]  { --primary-color: #3B82F6; }
+        [data-theme="red"]   { --primary-color: #EF4444; }
+        [data-theme="purple"]{ --primary-color: #8B5CF6; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            color: white;
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .animated-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(-45deg, var(--primary-color), #667eea, var(--primary-color), #a78bfa);
+            background-size: 400% 400%;
+            animation: gradient 18s ease infinite;
+            opacity: 0.6;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+        .card:hover { transform: translateY(-4px); }
+        .btn {
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+            color: white;
+        }
+        .option {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 16px;
+            margin: 12px 0;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .option:hover { background: rgba(255,255,255,0.15); border-color: var(--primary-color); }
+        .option.selected { border-color: var(--primary-color); background: rgba(var(--primary-color),0.15); }
+        .correct { background: rgba(16,185,129,0.25) !important; border-color: var(--success-color) !important; }
+        .wrong   { background: rgba(239,68,68,0.25) !important; border-color: var(--danger-color) !important; }
+        .settings-btn {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="animated-bg"></div>
+
+<!-- Theme selector -->
+<div class="settings-btn" id="settings-btn">🎨</div>
+<div class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50" id="theme-overlay">
+    <div class="card p-8 max-w-sm w-full text-center">
+        <h3 class="text-2xl font-bold mb-6">Chọn chủ đề</h3>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="w-16 h-16 rounded-full cursor-pointer border-4 border-transparent hover:scale-110 transition" style="background:#1C3FAA;" data-theme="default"></div>
+            <div class="w-16 h-16 rounded-full cursor-pointer border-4 border-transparent hover:scale-110 transition" style="background:#EC4899;" data-theme="pink"></div>
+            <div class="w-16 h-16 rounded-full cursor-pointer border-4 border-transparent hover:scale-110 transition" style="background:#10B981;" data-theme="green"></div>
+            <div class="w-16 h-16 rounded-full cursor-pointer border-4 border-transparent hover:scale-110 transition" style="background:#3B82F6;" data-theme="blue"></div>
+            <div class="w-16 h-16 rounded-full cursor-pointer border-4 border-transparent hover:scale-110 transition" style="background:#EF4444;" data-theme="red"></div>
+            <div class="w-16 h-16 rounded-full cursor-pointer border-4 border-transparent hover:scale-110 transition" style="background:#8B5CF6;" data-theme="purple"></div>
+        </div>
+        <button class="mt-6 text-gray-400" id="close-theme">Đóng</button>
+    </div>
+</div>
+
+<div class="container mx-auto px-4 py-8 max-w-4xl relative z-10">
+
+    <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-2">Azota</h1>
+    <p class="text-center text-gray-300 mb-12">Ôn tập nhanh - Luyện tập & Thử thách</p>
+
+    <!-- Chọn môn + chế độ -->
+    <div id="selection-screen" class="card p-8 md:p-12">
+        <h2 class="text-2xl font-bold mb-6 text-center">Chọn môn học</h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
+            <button class="btn btn-primary text-lg subject-btn" data-subject="sinh-hoc">Sinh học</button>
+            <button class="btn btn-primary text-lg subject-btn opacity-50 cursor-not-allowed" disabled>Lịch sử</button>
+            <button class="btn btn-primary text-lg subject-btn opacity-50 cursor-not-allowed" disabled>Tiếng Anh</button>
+            <button class="btn btn-primary text-lg subject-btn opacity-50 cursor-not-allowed" disabled>Hóa học</button>
+            <button class="btn btn-primary text-lg subject-btn opacity-50 cursor-not-allowed" disabled>Vật lý</button>
+        </div>
+
+        <h2 class="text-2xl font-bold mb-6 text-center">Chọn chế độ</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+            <button id="btn-practice" class="btn btn-primary text-xl py-10">Luyện tập<br><span class="text-base opacity-80 mt-2 block">(Làm hết mới biết đáp án)</span></button>
+            <button id="btn-challenge" class="btn btn-primary text-xl py-10">Thử thách<br><span class="text-base opacity-80 mt-2 block">(Sai 1 câu → xem giải thích ngay)</span></button>
+        </div>
+    </div>
+
+    <!-- Khu vực làm bài -->
+    <div id="quiz-screen" class="hidden">
+        <div class="flex justify-between items-center mb-6">
+            <h2 id="quiz-title" class="text-2xl font-bold"></h2>
+            <div id="progress" class="text-lg"></div>
+        </div>
+
+        <div id="questions-container" class="space-y-6"></div>
+
+        <button id="btn-submit" class="btn btn-primary w-full mt-10 text-xl py-6 hidden">NỘP BÀI</button>
+        <div id="final-result" class="hidden mt-10 text-center text-2xl font-bold"></div>
+    </div>
+
+</div>
+
+<script>
+// === CONFIG ===
+const SUBJECTS = {
+    "sinh-hoc": { name: "Sinh học", file: "https://raw.githubusercontent.com/TEN_USER/TEN_REPO/main/questions/sinh-hoc.txt" }
+    // Thêm các môn khác khi có file .txt
+    // "lich-su":   { name: "Lịch sử",   file: "..." }
+};
+
+let currentSubject = null;
+let currentMode = null; // 'practice' hoặc 'challenge'
+let questions = [];
+let userAnswers = [];
+let currentQuestionIndex = 0;
+
+// Theme
+document.querySelectorAll('[data-theme]').forEach(el => {
+    el.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', el.dataset.theme);
+        document.querySelectorAll('[data-theme]').forEach(b => b.classList.remove('border-white'));
+        el.classList.add('border-white');
+    });
+});
+document.getElementById('settings-btn').onclick = () => document.getElementById('theme-overlay').classList.toggle('hidden');
+document.getElementById('close-theme').onclick = () => document.getElementById('theme-overlay').classList.add('hidden');
+document.getElementById('theme-overlay').onclick = e => { if(e.target === e.currentTarget) e.currentTarget.classList.add('hidden'); };
+
+// Chọn môn
+document.querySelectorAll('.subject-btn:not([disabled])').forEach(btn => {
+    btn.onclick = () => {
+        currentSubject = btn.dataset.subject;
+        document.querySelectorAll('.subject-btn').forEach(b => b.classList.remove('ring-4','ring-white'));
+        btn.classList.add('ring-4','ring-white');
+    };
+});
+
+// Bắt đầu chế độ
+async function startQuiz(mode) {
+    if (!currentSubject) return alert("Vui lòng chọn môn học trước!");
+    currentMode = mode;
+
+    document.getElementById('selection-screen').classList.add('hidden');
+    document.getElementById('quiz-screen').classList.remove('hidden');
+    document.getElementById('quiz-title').textContent = `${SUBJECTS[currentSubject].name} - ${mode === 'practice' ? 'Luyện tập' : 'Thử thách'}`;
+
+    await loadQuestions();
+    shuffle(questions);
+    renderQuestions();
+    if (mode === 'practice') document.getElementById('btn-submit').classList.remove('hidden');
+}
+
+document.getElementById('btn-practice').onclick = () => startQuiz('practice');
+document.getElementById('btn-challenge').onclick = () => startQuiz('challenge');
+
+// Load câu hỏi từ .txt
+async function loadQuestions() {
+    try {
+        const url = SUBJECTS[currentSubject].file;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Không tải được file câu hỏi");
+        const text = await res.text();
+        questions = text.trim().split('\n').map(line => {
+            const [q, opts, correct, explain] = line.split(';').map(s => s.trim());
+            return {
+                question: q,
+                options: opts.split('|'),
+                correct: parseInt(correct) - 1, // 0-based
+                explain: explain || "Chưa có giải thích"
+            };
+        }).filter(q => q.question);
+    } catch (err) {
+        alert("Lỗi tải câu hỏi: " + err.message);
+    }
+}
+
+// Xáo trộn mảng
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Render câu hỏi
+function renderQuestions() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    questions.forEach((q, idx) => {
+        const div = document.createElement('div');
+        div.className = 'card p-6';
+        div.innerHTML = `
+            <div class="text-xl font-bold mb-4">Câu ${idx + 1}: ${q.question}</div>
+            <div class="space-y-3" data-idx="${idx}">
+                ${q.options.map((opt, i) => `
+                    <div class="option flex items-center gap-3" data-choice="${i}">
+                        <div class="w-8 h-8 rounded-full border-2 border-gray-500 flex items-center justify-center text-lg font-bold">${i+1}</div>
+                        <span>${opt}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="mt-4 hidden explanation text-gray-300 italic">${q.explain}</div>
+        `;
+        container.appendChild(div);
+
+        // Xử lý click chọn đáp án
+        div.querySelectorAll('.option').forEach(opt => {
+            opt.onclick = () => {
+                if (currentMode === 'challenge' && div.querySelector('.explanation').classList.contains('hidden') === false) return;
+                div.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                opt.classList.add('selected');
+                userAnswers[idx] = parseInt(opt.dataset.choice);
+                if (currentMode === 'challenge') checkAnswer(idx);
+            };
+        });
+    });
+
+    document.getElementById('progress').textContent = `Câu 1 / ${questions.length}`;
+}
+
+// Kiểm tra đáp án (chỉ dùng ở challenge)
+function checkAnswer(idx) {
+    const q = questions[idx];
+    const selected = userAnswers[idx];
+    const isCorrect = selected === q.correct;
+
+    const container = document.querySelector(`[data-idx="${idx}"]`);
+    container.querySelectorAll('.option').forEach((opt, i) => {
+        if (i === q.correct) opt.classList.add('correct');
+        if (i === selected && !isCorrect) opt.classList.add('wrong');
+    });
+
+    container.querySelector('.explanation').classList.remove('hidden');
+
+    if (!isCorrect) {
+        setTimeout(() => {
+            document.getElementById('final-result').innerHTML = `
+                <div class="text-4xl font-bold text-red-400 mb-6">SAI RỒI!</div>
+                <div class="text-2xl mb-4">Bạn đã làm đúng ${userAnswers.filter((a,i)=>a===questions[i].correct).length} / ${questions.length} câu</div>
+                <button onclick="location.reload()" class="btn btn-primary mt-6 text-xl py-4">Làm lại</button>
+            `;
+            document.getElementById('final-result').classList.remove('hidden');
+            document.getElementById('btn-submit').classList.add('hidden');
+        }, 1500);
+    } else {
+        // Tiếp tục câu sau (challenge)
+        currentQuestionIndex = idx + 1;
+        document.getElementById('progress').textContent = `Câu ${currentQuestionIndex + 1} / ${questions.length}`;
+    }
+}
+
+// Nộp bài (chỉ practice)
+document.getElementById('btn-submit').onclick = () => {
+    if (currentMode !== 'practice') return;
+
+    let correctCount = 0;
+    questions.forEach((q, idx) => {
+        const selected = userAnswers[idx];
+        if (selected === q.correct) correctCount++;
+
+        const container = document.querySelector(`[data-idx="${idx}"]`);
+        container.querySelectorAll('.option').forEach((opt, i) => {
+            if (i === q.correct) opt.classList.add('correct');
+            if (i === selected && selected !== q.correct) opt.classList.add('wrong');
+        });
+        container.querySelector('.explanation').classList.remove('hidden');
+    });
+
+    document.getElementById('final-result').innerHTML = `
+        <div class="text-5xl font-extrabold ${correctCount / questions.length >= 0.8 ? 'text-green-400' : 'text-yellow-400'}">
+            ${correctCount} / ${questions.length}
+        </div>
+        <div class="text-2xl mt-4">${Math.round((correctCount / questions.length) * 100)}%</div>
+        <button onclick="location.reload()" class="btn btn-primary mt-8 text-xl py-4">Làm lại</button>
+    `;
+    document.getElementById('final-result').classList.remove('hidden');
+    document.getElementById('btn-submit').classList.add('hidden');
+};
+</script>
+</body>
+</html>
