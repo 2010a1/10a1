@@ -1,517 +1,1004 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="default">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📊 EduStats - Dashboard Appwrite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Azota - Ôn tập nhanh</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <!-- CDN sửa lại giống code ôn tập của bạn - expose Appwrite chữ hoa -->
-    <script src="https://cdn.jsdelivr.net/npm/appwrite@15.0.0"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1C3FAA',
+                        success: '#91C714',
+                        danger: '#D32929',
+                        pink: '#EC4899',
+                        green: '#10B981',
+                        blue: '#3B82F6',
+                        red: '#EF4444',
+                        purple: '#8B5CF6'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
-        
+        :root {
+            --primary-color: #1C3FAA;
+            --success-color: #91C714;
+            --danger-color: #D32929;
+            --bg-color: #f8fafc;
+            --card-bg: rgba(255,255,255,0.9);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+        }
+        [data-theme="pink"] { --primary-color: #EC4899; --success-color: #10B981; --danger-color: #EF4444; }
+        [data-theme="green"] { --primary-color: #10B981; --success-color: #EC4899; --danger-color: #EF4444; }
+        [data-theme="blue"] { --primary-color: #3B82F6; --success-color: #10B981; --danger-color: #EF4444; }
+        [data-theme="red"] { --primary-color: #EF4444; --success-color: #10B981; --danger-color: #EC4899; }
+        [data-theme="purple"] { --primary-color: #8B5CF6; --success-color: #10B981; --danger-color: #EF4444; }
+
         body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: #0a0a0a;
-            color: #e5e5e5;
-            min-height: 100vh;
-        }
-        
-        .title-font {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
-        }
-
-        canvas {
-            width: 100% !important;
-            height: 100% !important;
-        }
-
-        .chart-container {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            margin: 0;
+            overflow-x: hidden;
             position: relative;
-            height: 320px;
-            width: 100%;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .no-data {
+        .animated-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(-45deg, var(--primary-color), var(--primary-color)80%, #ffffff20);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        .animated-bg::before {
+            content: '';
             position: absolute;
             inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(120,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,119,198,0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(120,219,255,0.3) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 1rem; position: relative; z-index: 1; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.2);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 30px 80px rgba(0,0,0,0.15); }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), rgba(28,63,170,0.8));
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header h1 { font-size: 2.8rem; font-weight: 800; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+        .mode-card { padding: 50px 24px; text-align: center; background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7)); backdrop-filter: blur(20px); }
+        .mode-btn {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 28px;
+            border-radius: 20px;
+            font-size: 20px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.95);
+            border: 2px solid rgba(28,63,170,0.2);
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mode-btn:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(28,63,170,0.2);
+        }
+
+        .question-card {
+            padding: 24px 16px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
+        }
+        .question-num { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); margin-bottom: 12px; text-align: center; }
+        .question-text {
+            font-size: 1.125rem;
+            line-height: 1.75;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+        .question-image { max-width: 100%; border-radius: 12px; margin: 16px auto; display: block; box-shadow: 0 6px 20px rgba(0,0,0,0.12); cursor: zoom-in; }
+
+        .option {
+            background: rgba(248,250,252,0.9);
+            border: 2px solid rgba(226,232,240,0.8);
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 12px;
+            min-height: 3.5rem;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+        .option:hover { background: rgba(238,242,255,0.9); border-color: var(--primary-color); transform: translateX(4px); }
+        .option input[type="radio"] { width: 22px; height: 22px; accent-color: var(--primary-color); cursor: pointer; flex-shrink: 0; margin-top: 4px; }
+        .option .letter {
+            min-width: 60px;
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--primary-color);
+            text-align: center;
+            background: rgba(28,63,170,0.08);
+            border-radius: 8px;
+            padding: 6px 0;
+            flex-shrink: 0;
+        }
+        .option .flex-1 {
+            line-height: 1.68;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color), rgba(28,63,170,0.8));
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-top: 28px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(28,63,170,0.3);
+            transition: all 0.3s;
+        }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(28,63,170,0.4); }
+
+        .feedback { margin-top: 20px; padding: 20px; border-radius: 14px; font-size: 1.2rem; text-align: center; font-weight: 700; backdrop-filter: blur(10px); opacity: 0; transform: translateY(15px); transition: all 0.5s; }
+        .feedback.show { opacity: 1; transform: translateY(0); }
+        .feedback.correct { background: rgba(212,237,218,0.9); color: #155724; border: 1px solid var(--success-color); }
+        .feedback.wrong { background: rgba(252,232,232,0.9); color: #721c24; border: 1px solid var(--danger-color); }
+
+        .settings-btn {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #71717a;
-            font-size: 1.1rem;
-            background: rgba(0,0,0,0.3);
-            border-radius: 1rem;
+        }
+        .settings-icon { width: 28px; height: 28px; background: url('https://cdn-icons-png.flaticon.com/512/2040/2040504.png') no-repeat center; background-size: contain; }
+
+        .setting-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; display: none; align-items: center; justify-content: center; }
+        .setting-overlay.show { display: flex; }
+
+        .theme-selector { background: white; padding: 28px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); backdrop-filter: blur(10px); text-align: center; max-width: 95%; border: 1px solid #e5e7eb; }
+        .theme-btn { display: inline-block; width: 48px; height: 48px; border-radius: 50%; margin: 8px; cursor: pointer; border: 4px solid transparent; transition: all 0.3s; }
+        .theme-btn.active { border-color: #fff; transform: scale(1.15); box-shadow: 0 0 20px rgba(0,0,0,0.4); }
+
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: none; align-items: center; justify-content: center; }
+        .modal.show { display: flex; }
+        .modal img { max-width: 95%; max-height: 95vh; object-fit: contain; border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.8); }
+        .close-modal { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.2); color: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; backdrop-filter: blur(8px); }
+
+        .timer { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.95); padding: 10px 24px; border-radius: 9999px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); font-size: 1.25rem; font-weight: 700; color: var(--primary-color); z-index: 999; backdrop-filter: blur(10px); }
+
+        .music-bar { position: fixed; bottom: 16px; right: 16px; background: rgba(255,255,255,0.95); padding: 10px 18px; border-radius: 9999px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); display: none; align-items: center; gap: 10px; z-index: 1000; }
+
+        body.low-mode * { animation: none !important; transform: none !important; box-shadow: none !important; backdrop-filter: none !important; transition: none !important; }
+        body.low-mode .card { box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important; backdrop-filter: none !important; }
+        body.low-mode { background: #f9fafb !important; }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.2rem; }
+            .settings-btn { width: 52px; height: 52px; top: 12px; right: 12px; }
+            .timer { font-size: 1.1rem; padding: 8px 20px; }
+            .question-text { font-size: 1.05rem; line-height: 1.7; }
+            .option { font-size: 1rem; padding: 14px 16px; gap: 12px; }
+            .option .letter { min-width: 50px; font-size: 1.1rem; }
+            .option .flex-1 { font-size: 1rem; line-height: 1.65; }
+        }
+
+        @media (max-width: 480px) {
+            .letter { min-width: 48px !important; font-size: 1.05rem !important; }
+            .question-text { font-size: 1rem; line-height: 1.65; }
         }
     </style>
 </head>
-<body class="min-h-screen">
-    <div class="max-w-7xl mx-auto p-6">
-        <!-- HEADER -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-6">
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 bg-yellow-500 rounded-2xl flex items-center justify-center text-4xl shadow-xl">📊</div>
-                <div>
-                    <h1 class="title-font text-4xl font-bold tracking-tight text-white">EduStats</h1>
-                    <p class="text-zinc-400">Thống kê bài tập • Appwrite</p>
+<script>
+    // Chặn chuột phải (context menu)
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Chặn F12, Ctrl+Shift+I, Ctrl+U, Ctrl+C, Ctrl+A, v.v.
+    document.addEventListener('keydown', function(e) {
+        if (
+            e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+            (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'c' || e.key === 'a')) ||
+            (e.keyCode === 123)
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    document.addEventListener('selectstart', e => e.preventDefault());
+</script>
+<script>
+    // Chặn mở DevTools
+    (function() {
+        const threshold = 160;
+        const check = () => {
+            const widthDiff  = window.outerWidth  - window.innerWidth;
+            const heightDiff = window.outerHeight - window.innerHeight;
+            if (widthDiff > threshold || heightDiff > threshold) {
+                document.body.innerHTML = '<h1 style="text-align:center;margin-top:20vh;color:red">Ây dô bờ rô sờ tóp pịt</h1>';
+            }
+        };
+        setInterval(check, 500);
+    })();
+</script>
+<body>
+
+    <div class="animated-bg"></div>
+
+    <div class="settings-btn" id="settings-btn">
+        <div class="settings-icon"></div>
+    </div>
+
+    <div class="setting-overlay" id="setting-overlay">
+        <div class="theme-selector">
+            <h3 class="text-2xl font-bold mb-8">Cài đặt</h3>
+            <div class="mb-8">
+                <p class="font-medium mb-4">Chọn màu chủ đề</p>
+                <div class="flex justify-center gap-4 flex-wrap">
+                    <div class="theme-btn active" style="background:#1C3FAA" data-theme="default" onclick="changeTheme('default')"></div>
+                    <div class="theme-btn" style="background:#EC4899" data-theme="pink" onclick="changeTheme('pink')"></div>
+                    <div class="theme-btn" style="background:#10B981" data-theme="green" onclick="changeTheme('green')"></div>
+                    <div class="theme-btn" style="background:#3B82F6" data-theme="blue" onclick="changeTheme('blue')"></div>
+                    <div class="theme-btn" style="background:#EF4444" data-theme="red" onclick="changeTheme('red')"></div>
+                    <div class="theme-btn" style="background:#8B5CF6" data-theme="purple" onclick="changeTheme('purple')"></div>
                 </div>
             </div>
-            
-            <div class="flex items-center gap-4 flex-wrap">
-                <div class="bg-zinc-900 rounded-full p-1.5 shadow-inner flex">
-                    <button onclick="setFilter('today')" id="btn-today" class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium transition-all">Hôm nay</button>
-                    <button onclick="setFilter('yesterday')" id="btn-yesterday" class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium transition-all">Hôm qua</button>
-                    <button onclick="setFilter('7days')" id="btn-7days" class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium transition-all">7 ngày</button>
+            <div class="mb-8">
+                <p class="font-medium mb-3">Chế độ giao diện</p>
+                <div class="flex gap-3">
+                    <button id="btn-normal" onclick="setMode('normal')" class="flex-1 py-4 bg-blue-600 text-white rounded-2xl font-medium">Đẹp (hiệu ứng)</button>
+                    <button id="btn-low" onclick="setMode('low')" class="flex-1 py-4 bg-gray-300 rounded-2xl font-medium">Low (nhẹ)</button>
                 </div>
+            </div>
+            <div class="mt-6 p-6 bg-white border rounded-2xl shadow-md">
+                <h3 class="text-xl font-bold mb-4">Nhạc nền YouTube</h3>
+                <input id="music-link-input" type="text" class="w-full p-4 border rounded-xl mb-4" placeholder="Dán link YouTube...">
+                <div class="flex gap-3">
+                    <button onclick="saveAndPlayMusic()" class="flex-1 py-3 bg-gray-800 hover:bg-gray-900 text-white rounded-xl font-medium shadow transition">Lưu & Phát</button>
+                    <button onclick="stopMusic()" class="flex-1 py-3 bg-gray-600 text-white rounded-xl font-medium shadow">Dừng</button>
+                </div>
+                <div class="mt-6">
+                    <label class="block text-sm mb-2">Âm lượng</label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-lg cursor-pointer">
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <button onclick="showSettingsModal()" class="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 px-5 py-2.5 rounded-full text-sm font-medium transition-colors">
-                    <span class="text-yellow-400">⚙️</span> Cấu hình
+    <div class="modal" id="music-confirm-modal">
+        <div class="theme-selector max-w-md p-10 text-center">
+            <h3 class="text-3xl font-bold mb-4">Phát nhạc nền?</h3>
+            <p class="mb-6">Bạn đã lưu link nhạc. Phát ngay không?</p>
+            <div class="flex gap-4">
+                <button onclick="playSavedMusic();closeMusicConfirm()" class="flex-1 py-4 bg-green-500 text-white rounded-xl">Có</button>
+                <button onclick="closeMusicConfirm()" class="flex-1 py-4 bg-gray-300 rounded-xl">Không</button>
+            </div>
+            <label class="flex items-center justify-center gap-3 mt-6">
+                <input type="checkbox" id="dont-ask-music" class="w-5 h-5">
+                <span>Không hỏi lại lần sau</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="modal" id="no-data-modal">
+        <div class="theme-selector max-w-md p-10 text-center">
+            <h3 class="text-3xl font-bold mb-4 text-[var(--danger-color)]">Chưa có tài liệu ôn tập</h3>
+            <p class="mb-6">Môn này hiện chưa có câu hỏi.<br>Vui lòng thử lại sau!</p>
+            <button onclick="closeNoDataModal()" class="submit-btn">Quay lại</button>
+        </div>
+    </div>
+
+    <div class="modal" id="info-modal">
+        <div class="theme-selector max-w-md p-10 text-center">
+            <h3 id="modal-title" class="text-3xl font-bold mb-4"></h3>
+            <p id="modal-message" class="mb-8 text-lg"></p>
+            <button onclick="closeInfoModal()" class="submit-btn">Đóng</button>
+        </div>
+    </div>
+
+    <div class="modal" id="image-modal">
+        <span class="close-modal" id="close-modal">×</span>
+        <img id="modal-img" src="" alt="Phóng to ảnh">
+    </div>
+
+    <div id="music-bar" class="music-bar">
+        <span>🎵 Đang phát nhạc nền</span>
+        <button onclick="stopMusic()" class="text-red-500 text-2xl">⏹</button>
+    </div>
+
+    <div class="container pt-8">
+        <div class="card header mb-8">
+            <h1>Azota - Ôn tập nhanh</h1>
+            <small class="text-white/80 block">Học kỳ I - 2025-2026 © Anh Tú</small>
+        </div>
+
+        <div id="home-screen" class="card mode-card">
+            <h2 class="text-4xl font-bold text-[var(--primary-color)] mb-12">Chào mừng!</h2>
+            <button onclick="showSubjectSelection()" class="mode-btn text-3xl py-16">📚 Bắt đầu ôn tập</button>
+        </div>
+
+        <div id="subject-selection" class="hidden card mode-card">
+            <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-8">Chọn môn học</h2>
+            <div class="grid grid-cols-1 gap-6 mb-12">
+                <button class="mode-btn" onclick="selectSubject('sinh-hoc')">
+                    <div class="text-5xl mb-3">📖</div>Đoàn đội
                 </button>
             </div>
+            <button onclick="location.reload()" class="text-gray-500 mt-6 block mx-auto">← Quay lại</button>
         </div>
 
-        <!-- LOADING -->
-        <div id="loading-overlay" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-            <div class="text-center">
-                <div class="w-14 h-14 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                <p class="text-lg">Đang tải dữ liệu...</p>
+        <div id="mode-selection" class="hidden card mode-card">
+            <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-8">Chọn chế độ</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <button class="mode-btn" onclick="startQuiz('practice')">
+                    <div class="text-5xl mb-4">📚</div>
+                    Luyện tập
+                    <p class="text-lg mt-4 text-[var(--text-secondary)]">Làm hết → Nộp bài → Xem đáp án</p>
+                </button>
+                <button class="mode-btn" onclick="startQuiz('challenge')">
+                    <div class="text-5xl mb-4">⚔️</div>
+                    Thử thách
+                    <p class="text-lg mt-4 text-[var(--text-secondary)]">Từng câu - Sai → kết thúc</p>
+                </button>
             </div>
+            <button onclick="location.reload()" class="text-gray-500 mt-6 block mx-auto">← Quay lại</button>
         </div>
 
-        <!-- MAIN CONTENT -->
-        <div id="main-content">
+        <div id="quiz-area" class="hidden mt-8">
+            <div id="timer-display" class="timer hidden">⏱ Thời gian: <span id="elapsed-time">0</span> giây</div>
 
-            <!-- OVERVIEW CARDS -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                <div class="card bg-zinc-900/80 backdrop-blur-sm rounded-3xl p-8 border border-zinc-800 shadow-xl">
-                    <p class="text-zinc-400 text-sm font-medium mb-2">TỔNG LẦN LÀM BÀI</p>
-                    <p id="total-attempts" class="text-5xl font-bold text-white">0</p>
-                    <div id="comparison" class="mt-4 text-sm"></div>
-                </div>
-
-                <div class="card bg-zinc-900/80 backdrop-blur-sm rounded-3xl p-8 border border-zinc-800 shadow-xl">
-                    <p class="text-zinc-400 text-sm font-medium mb-2">TỔNG TOÀN BỘ</p>
-                    <p id="total-all" class="text-5xl font-bold text-white">0</p>
-                </div>
-
-                <div class="card bg-zinc-900/80 backdrop-blur-sm rounded-3xl p-8 border border-zinc-800 shadow-xl">
-                    <p class="text-zinc-400 text-sm font-medium mb-2">TRUNG BÌNH ĐIỂM</p>
-                    <p id="avg-score-all" class="text-5xl font-bold text-white">0.0</p>
-                </div>
+            <div id="practice-mode" class="hidden">
+                <div id="practice-questions"></div>
+                <button class="submit-btn mt-10" id="submit-practice">NỘP BÀI & CHẤM ĐIỂM</button>
+                <div id="practice-result" class="hidden mt-12 text-center"></div>
             </div>
 
-            <!-- SUBJECTS -->
-            <div class="mb-12">
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-semibold flex items-center gap-3">
-                        <span class="text-3xl">📘</span> Theo môn học
-                    </h2>
-                </div>
-                <div id="subject-cards" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5">
-                    <!-- JS sẽ điền -->
-                </div>
-            </div>
-
-            <!-- CHARTS -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                <div class="bg-zinc-900/80 backdrop-blur-sm rounded-3xl p-8 border border-zinc-800 shadow-xl">
-                    <h3 id="time-chart-title" class="font-semibold mb-6 text-lg">Số lần làm bài theo giờ</h3>
-                    <div class="chart-container">
-                        <canvas id="timeChart"></canvas>
-                        <div id="time-no-data" class="no-data hidden">Chưa có dữ liệu trong khoảng thời gian này</div>
-                    </div>
-                </div>
-
-                <div class="bg-zinc-900/80 backdrop-blur-sm rounded-3xl p-8 border border-zinc-800 shadow-xl">
-                    <h3 class="font-semibold mb-6 text-lg">Tổng bài theo môn</h3>
-                    <div class="chart-container">
-                        <canvas id="subjectChart"></canvas>
-                        <div id="subject-no-data" class="no-data hidden">Chưa có dữ liệu</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AVG SCORE -->
-            <div class="bg-zinc-900/80 backdrop-blur-sm rounded-3xl p-8 border border-zinc-800 shadow-xl">
-                <h2 class="text-2xl font-semibold mb-6 flex items-center gap-3">
-                    <span class="text-3xl">⭐</span> Trung bình điểm theo môn
-                </h2>
-                <div id="avg-list" class="space-y-4">
-                    <!-- JS sẽ điền -->
-                </div>
-            </div>
-        </div>
-
-        <!-- SETTINGS MODAL -->
-        <div id="settings-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center" onclick="if(event.target.id==='settings-modal') hideSettingsModal()">
-            <div class="bg-zinc-900 w-full max-w-lg mx-4 rounded-3xl shadow-2xl overflow-hidden" onclick="event.stopPropagation()">
-                <div class="p-8">
-                    <h2 class="text-2xl font-bold mb-8">Cấu hình Appwrite</h2>
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-sm text-zinc-400 mb-2">Endpoint</label>
-                            <input id="input-endpoint" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 focus:border-yellow-500 outline-none" value="https://sgp.cloud.appwrite.io/v1">
-                        </div>
-                        <div>
-                            <label class="block text-sm text-zinc-400 mb-2">Project ID</label>
-                            <input id="input-project" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 focus:border-yellow-500 outline-none" value="69ba3b66000aa8f0d52a">
-                        </div>
-                        <div class="grid grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm text-zinc-400 mb-2">Database ID</label>
-                                <input id="input-db" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 focus:border-yellow-500 outline-none" value="69ba3bc80028695398b8">
-                            </div>
-                            <div>
-                                <label class="block text-sm text-zinc-400 mb-2">Collection ID</label>
-                                <input id="input-collection" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 focus:border-yellow-500 outline-none" value="leaderboard">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-t border-zinc-800 p-6 flex gap-4">
-                    <button onclick="hideSettingsModal()" class="flex-1 py-3 text-zinc-300 hover:text-white">Hủy</button>
-                    <button onclick="saveAndConnect()" class="flex-1 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 font-semibold py-3 rounded-xl transition-colors">Lưu & Kết nối</button>
+            <div id="challenge-mode" class="hidden">
+                <div class="card question-card text-center">
+                    <div id="challenge-progress" class="text-xl font-medium text-[var(--primary-color)] mb-6"></div>
+                    <div id="current-question"></div>
+                    <button class="submit-btn hidden" id="submit-current">Nộp câu này</button>
+                    <button class="submit-btn hidden bg-gray-700" id="next-question">Câu tiếp theo →</button>
+                    <div id="challenge-feedback" class="feedback hidden"></div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== GLOBALS ====================
-        let client = null;
-        let databases = null;
-        let allDocs = [];
-        let currentFilter = 'today';
-        let timeChart = null;
-        let subjectChart = null;
-
-        const config = {
-            endpoint: 'https://sgp.cloud.appwrite.io/v1',
-            projectId: '69ba3b66000aa8f0d52a',
-            databaseId: '69ba3bc80028695398b8',
-            collectionId: 'leaderboard'
+        const SUBJECTS = {
+            "sinh-hoc": { name: "Đoàn đội", file: "https://raw.githubusercontent.com/2010a1/10a1/main/questions/doandoi.txt" }
         };
 
-        // ==================== DATE UTILS ====================
-        function getStartOfDay(date = new Date()) {
-            const d = new Date(date);
-            d.setHours(0, 0, 0, 0);
-            return d;
+        let currentSubject = null;
+        let currentMode = null;
+        let allQuestions = [];
+        let currentQuizQuestions = [];
+        let currentIndex = 0;
+        let startTime = 0;
+        let timerInterval = null;
+        let musicLink = localStorage.getItem('musicLink') || '';
+        let currentMusicIframe = null;
+
+        function getUsedKey(type) {
+            return `used_${currentSubject || 'default'}_${type}`;
         }
 
-        function getDateRange(filter) {
-            const todayStart = getStartOfDay();
-            if (filter === 'today') {
-                return { start: todayStart, end: new Date(todayStart.getTime() + 86400000) };
-            }
-            if (filter === 'yesterday') {
-                const y = new Date(todayStart.getTime() - 86400000);
-                return { start: y, end: todayStart };
-            }
-            const sevenDaysAgo = new Date(todayStart.getTime() - 6 * 86400000);
-            return { start: sevenDaysAgo, end: new Date(todayStart.getTime() + 86400000) };
-        }
+        function getRandom50PercentByType(typeQuestions) {
+            if (!typeQuestions.length) return [];
 
-        function getPrevRange(start, end) {
-            const duration = end - start;
-            return { start: new Date(start - duration), end: start };
-        }
+            let typeKey = 'TL';
+            if (typeQuestions[0].type.toUpperCase().includes('TN')) typeKey = 'TN';
+            else if (typeQuestions[0].type.toUpperCase().includes('DS') || typeQuestions[0].type.includes('ĐS') || typeQuestions[0].type === 'DUNGSAI') typeKey = 'DS';
 
-        function filterDocs(docs, start, end) {
-            return docs.filter(d => {
-                const t = new Date(d.$createdAt);
-                return t >= start && t < end;
-            });
-        }
+            const key = getUsedKey(typeKey);
+            let used = JSON.parse(localStorage.getItem(key)) || [];
 
-        // ==================== DATA HELPERS ====================
-        function calculateStats(docs) {
-            if (!docs?.length) return { total: 0, avg: '0.0' };
-            const sum = docs.reduce((s, d) => s + Number(d.score || 0), 0);
-            return { total: docs.length, avg: (sum / docs.length).toFixed(1) };
-        }
-
-        function getSubjectCounts(docs) {
-            return docs.reduce((acc, d) => {
-                const s = d.subject || 'Khác';
-                acc[s] = (acc[s] || 0) + 1;
-                return acc;
-            }, {});
-        }
-
-        function getAvgBySubject(docs) {
-            const map = docs.reduce((acc, d) => {
-                const s = d.subject || 'Khác';
-                if (!acc[s]) acc[s] = { sum: 0, cnt: 0 };
-                acc[s].sum += Number(d.score || 0);
-                acc[s].cnt++;
-                return acc;
-            }, {});
-            return Object.fromEntries(
-                Object.entries(map).map(([k, v]) => [k, (v.sum / v.cnt).toFixed(1)])
-            );
-        }
-
-        function getHourlyData(docs) {
-            const arr = new Array(24).fill(0);
-            docs.forEach(d => {
-                const h = new Date(d.$createdAt).getHours();
-                arr[h]++;
-            });
-            return arr;
-        }
-
-        // ==================== RENDER ====================
-        function renderSubjectCards(current, prev) {
-            const container = document.getElementById('subject-cards');
-            container.innerHTML = '';
-            const currMap = getSubjectCounts(current);
-            const prevMap = getSubjectCounts(prev);
-            const subs = [...new Set([...Object.keys(currMap), ...Object.keys(prevMap)])].slice(0, 10);
-
-            subs.forEach(sub => {
-                const c = currMap[sub] || 0;
-                const p = prevMap[sub] || 0;
-                const diff = c - p;
-                const diffEl = diff !== 0 ? `<span class="${diff > 0 ? 'text-emerald-400' : 'text-red-400'} text-xs ml-1">${diff > 0 ? '+' : ''}${diff}</span>` : '';
-
-                container.innerHTML += `
-                    <div class="card bg-zinc-900/70 rounded-2xl p-5 border border-zinc-800 cursor-pointer hover:bg-zinc-800/70 transition-all" onclick="alert('Chi tiết môn ${sub}')">
-                        <p class="font-medium">${sub}</p>
-                        <p class="text-3xl font-bold mt-2">${c}</p>
-                        ${diffEl}
-                    </div>
-                `;
-            });
-        }
-
-        function renderAvgList(docs) {
-            const container = document.getElementById('avg-list');
-            container.innerHTML = '';
-            const avgs = getAvgBySubject(docs);
-            Object.keys(avgs).sort().forEach(sub => {
-                const score = avgs[sub];
-                const count = docs.filter(d => d.subject === sub).length;
-                container.innerHTML += `
-                    <div class="bg-zinc-900/50 rounded-2xl p-5 border border-zinc-800">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center gap-3">
-                                <span class="text-2xl">📘</span>
-                                <span class="font-medium text-lg">${sub}</span>
-                            </div>
-                            <span class="text-3xl font-bold">${score}</span>
-                        </div>
-                        <p class="text-sm text-zinc-400 mt-2">Dựa trên ${count} bài</p>
-                    </div>
-                `;
-            });
-        }
-
-        function updateOverview(currDocs, prevDocs) {
-            const c = calculateStats(currDocs);
-            const p = calculateStats(prevDocs);
-            document.getElementById('total-attempts').textContent = c.total;
-            document.getElementById('total-all').textContent = allDocs.length;
-            document.getElementById('avg-score-all').textContent = c.avg;
-
-            const diff = c.total - p.total;
-            document.getElementById('comparison').innerHTML = diff !== 0 ? `
-                <span class="inline-block px-3 py-1 rounded-full text-xs ${diff >= 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">
-                    ${diff >= 0 ? '↑' : '↓'} ${Math.abs(diff)} so với kỳ trước
-                </span>
-            ` : '';
-        }
-
-        function createTimeChart(docs, isSingleDay) {
-            const ctx = document.getElementById('timeChart');
-            const noData = document.getElementById('time-no-data');
-
-            if (timeChart) timeChart.destroy();
-
-            if (!docs.length) {
-                noData.classList.remove('hidden');
-                return;
-            }
-            noData.classList.add('hidden');
-
-            let labels, data, title;
-            if (isSingleDay) {
-                data = getHourlyData(docs);
-                labels = Array.from({length: 24}, (_,i) => `${i}h`);
-                title = 'Số lần làm bài theo giờ hôm nay';
-            } else {
-                data = getHourlyData(docs);
-                labels = Array.from({length: 24}, (_,i) => `${i}h`);
-                title = 'Số lần làm bài (7 ngày)';
+            if (used.length >= Math.floor(typeQuestions.length * 0.5)) {
+                localStorage.removeItem(key);
+                used = [];
             }
 
-            document.getElementById('time-chart-title').textContent = title;
+            const available = typeQuestions.map((q, i) => ({q, i})).filter(x => !used.includes(x.i));
+            const need = Math.max(1, Math.ceil(typeQuestions.length * 0.5));
+            const selected = available.sort(() => Math.random() - 0.5).slice(0, need);
 
-            timeChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels,
-                    datasets: [{
-                        data,
-                        backgroundColor: '#eab308',
-                        borderRadius: 6,
-                        barThickness: isSingleDay ? 20 : 28
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { grid: { color: '#27272a' }, ticks: { color: '#a1a1aa' } },
-                        x: { grid: { display: false }, ticks: { color: '#a1a1aa' } }
-                    }
-                }
-            });
+            const newUsed = [...used, ...selected.map(x => x.i)];
+            localStorage.setItem(key, JSON.stringify([...new Set(newUsed)]));
+
+            return selected.map(item => item.q);
         }
 
-        function createSubjectChart(docs) {
-            const ctx = document.getElementById('subjectChart');
-            const noData = document.getElementById('subject-no-data');
+        function shuffleOptions(question) {
+            if (!question.options || question.options.length < 2) return question;
 
-            if (subjectChart) subjectChart.destroy();
+            const copy = { ...question };
+            const originalCorrectValue = copy.options[copy.correct];
 
-            if (!docs.length) {
-                noData.classList.remove('hidden');
-                return;
+            for (let i = copy.options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy.options[i], copy.options[j]] = [copy.options[j], copy.options[i]];
             }
-            noData.classList.add('hidden');
 
-            const counts = getSubjectCounts(docs);
-            const labels = Object.keys(counts);
-            const data = Object.values(counts);
-
-            subjectChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels,
-                    datasets: [{
-                        data,
-                        backgroundColor: '#eab308',
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { grid: { color: '#27272a' }, ticks: { color: '#a1a1aa' } },
-                        x: { grid: { display: false }, ticks: { color: '#a1a1aa' } }
-                    }
-                }
-            });
+            copy.correct = copy.options.indexOf(originalCorrectValue);
+            return copy;
         }
 
-        function updateAllUI() {
-            if (!allDocs.length) return;
-
-            const range = getDateRange(currentFilter);
-            const current = filterDocs(allDocs, range.start, range.end);
-            const prevRange = getPrevRange(range.start, range.end);
-            const prev = filterDocs(allDocs, prevRange.start, prevRange.end);
-
-            updateOverview(current, prev);
-            renderSubjectCards(current, prev);
-            renderAvgList(current);
-
-            const isSingle = (range.end - range.start) === 86400000;
-            createTimeChart(current, isSingle);
-            createSubjectChart(current);
-        }
-
-        // ==================== APPWRITE ====================
-        async function connectAppwrite() {
+        async function loadAndParseQuestions() {
             try {
-                document.getElementById('loading-overlay').classList.remove('hidden');
+                const url = SUBJECTS[currentSubject]?.file;
+                if (!url) throw new Error("Không tìm thấy file câu hỏi");
 
-                client = new Appwrite.Client()
-                    .setEndpoint(config.endpoint)
-                    .setProject(config.projectId);
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-                databases = new Appwrite.Databases(client);
+                const text = await res.text();
+                allQuestions = text.trim().split('\n')
+                    .map(line => {
+                        line = line.trim();
+                        if (!line || line.startsWith('//') || line.startsWith('#')) return null;
 
-                const res = await databases.listDocuments(
-                    config.databaseId,
-                    config.collectionId,
-                    [Appwrite.Query.limit(10000)]
-                );
+                        const parts = line.split(';').map(s => s.trim()).filter(s => s !== '');
+                        if (parts.length < 3) return null;
 
-                allDocs = res.documents;
-                document.getElementById('loading-overlay').classList.add('hidden');
-                updateAllUI();
+                        let type = parts[0].toUpperCase();
+                        let rawQuestion = parts[1];
+
+                        let question = rawQuestion.replace(
+                            /\[underline\](.*?)\[\/underline\]/gi, 
+                            '<u>$1</u>'
+                        );
+
+                        if (currentSubject === 'tieng-anh') {
+                            const vnParts = rawQuestion.split(/[.?!]\s*/);
+                            if (vnParts.length > 1) {
+                                const lastPart = vnParts[vnParts.length - 1].trim();
+                                if (lastPart.length > 15 && /[àáâãèéêìíòóôõùúăđĩũơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ]/.test(lastPart)) {
+                                    question = lastPart.replace(
+                                        /\[underline\](.*?)\[\/underline\]/gi, 
+                                        '<u>$1</u>'
+                                    );
+                                }
+                            }
+                            if (question.includes('Mark the letter') && question.includes('each of the following questions')) {
+                                const parts = question.split('.');
+                                if (parts.length > 1) {
+                                    question = parts.slice(-1)[0].trim() || question;
+                                }
+                            }
+                        }
+
+                        let options = [];
+                        let correct = null;
+                        let explain = '';
+                        let image = null;
+
+                        if (type === 'TN' || type === 'TRACNGHIEM') {
+                            if (parts.length < 4) return null;
+                            options = parts[2] ? parts[2].split('|').map(s => {
+                                let cleaned = s.trim();
+                                cleaned = cleaned.replace(/\[underline\](.*?)\[\/underline\]/gi, '<u>$1</u>');
+                                return cleaned;
+                            }).filter(Boolean) : [];
+
+                            const correctStr = parts[3] || '1';
+                            correct = /^\d+$/.test(correctStr) ? parseInt(correctStr) - 1 : 0;
+
+                            if (correct < 0 || correct >= options.length) correct = 0;
+
+                            if (parts.length >= 5) {
+                                if (parts[4].startsWith('http')) {
+                                    image = parts[4];
+                                    explain = parts[5] || '';
+                                } else {
+                                    explain = parts[4] || '';
+                                }
+                            }
+                        } else if (type === 'DS' || type.includes('ĐS') || type === 'DUNGSAI') {
+                            options = ['Đúng', 'Sai'];
+                            const raw = (parts[2] || '').toLowerCase().trim();
+                            correct = (raw === 'đúng' || raw === 'dung' || raw === '1' || raw === 'true') ? 0 : 1;
+                            explain = parts[parts.length - 1] || '';
+                            image = parts.find(p => p.startsWith('http')) || null;
+                        } else {
+                            correct = parts[2] || '';
+                            explain = parts[3] || '';
+                            image = parts.find(p => p.startsWith('http')) || null;
+                        }
+
+                        return { type, question, options, correct, explain, image };
+                    })
+                    .filter(q => q && q.question?.length > 5);
+
+                console.log(`Tải được ${allQuestions.length} câu hỏi`);
+                return allQuestions.length > 0;
             } catch (err) {
-                console.error("Lỗi Appwrite:", err);
-                document.getElementById('loading-overlay').classList.add('hidden');
-                alert('Kết nối thất bại: ' + (err.message || 'Không xác định'));
+                console.error("Lỗi tải/parse:", err);
+                showInfoModal("Lỗi", "Không tải được câu hỏi: " + err.message);
+                return false;
             }
         }
 
-        function saveAndConnect() {
-            config.endpoint   = document.getElementById('input-endpoint').value.trim();
-            config.projectId  = document.getElementById('input-project').value.trim();
-            config.databaseId = document.getElementById('input-db').value.trim();
-            config.collectionId = document.getElementById('input-collection').value.trim();
-
-            localStorage.setItem('appwriteEduStats', JSON.stringify(config));
-            hideSettingsModal();
-            connectAppwrite();
+        function startTimer() {
+            stopTimer();
+            let seconds = 0;
+            document.getElementById('elapsed-time').textContent = '0';
+            document.getElementById('timer-display').classList.remove('hidden');
+            timerInterval = setInterval(() => {
+                seconds++;
+                document.getElementById('elapsed-time').textContent = seconds;
+            }, 1000);
         }
 
-        // ==================== FILTER & MODAL ====================
-        function setFilter(f) {
-            currentFilter = f;
-            document.querySelectorAll('.filter-btn').forEach(b => {
-                b.classList.toggle('bg-yellow-500', b.id === `btn-${f}`);
-                b.classList.toggle('text-zinc-950', b.id === `btn-${f}`);
-            });
-            if (allDocs.length) updateAllUI();
-        }
-
-        function showSettingsModal() {
-            const saved = localStorage.getItem('appwriteEduStats');
-            if (saved) {
-                const s = JSON.parse(saved);
-                Object.assign(config, s);
-                document.getElementById('input-endpoint').value = config.endpoint;
-                document.getElementById('input-project').value = config.projectId;
-                document.getElementById('input-db').value = config.databaseId;
-                document.getElementById('input-collection').value = config.collectionId;
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
             }
-            document.getElementById('settings-modal').classList.remove('hidden');
+            document.getElementById('timer-display').classList.add('hidden');
         }
 
-        function hideSettingsModal() {
-            document.getElementById('settings-modal').classList.add('hidden');
+        function hideAllScreens() {
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('subject-selection').classList.add('hidden');
+            document.getElementById('mode-selection').classList.add('hidden');
+            document.getElementById('quiz-area').classList.add('hidden');
         }
 
-        // ==================== INIT ====================
-        window.addEventListener('resize', () => {
-            if (timeChart) timeChart.resize();
-            if (subjectChart) subjectChart.resize();
+        function showSubjectSelection() {
+            hideAllScreens();
+            document.getElementById('subject-selection').classList.remove('hidden');
+        }
+
+        function selectSubject(sub) {
+            currentSubject = sub;
+            hideAllScreens();
+            document.getElementById('mode-selection').classList.remove('hidden');
+        }
+
+        function changeTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme));
+            localStorage.setItem('theme', theme);
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'default';
+        changeTheme(savedTheme);
+
+        document.getElementById('settings-btn').addEventListener('click', () => document.getElementById('setting-overlay').classList.toggle('show'));
+        document.getElementById('setting-overlay').addEventListener('click', e => {
+            if (e.target === document.getElementById('setting-overlay')) document.getElementById('setting-overlay').classList.remove('show');
         });
 
-        window.onload = () => {
-            const saved = localStorage.getItem('appwriteEduStats');
-            if (saved) Object.assign(config, JSON.parse(saved));
-            setFilter('today');
-            connectAppwrite();
-        };
+        function setMode(mode) {
+            document.body.classList.toggle('low-mode', mode === 'low');
+            document.getElementById('btn-normal').classList.toggle('bg-blue-600', mode === 'normal');
+            document.getElementById('btn-normal').classList.toggle('text-white', mode === 'normal');
+            document.getElementById('btn-low').classList.toggle('bg-blue-600', mode === 'low');
+            document.getElementById('btn-low').classList.toggle('text-white', mode === 'low');
+            localStorage.setItem('uiMode', mode);
+        }
+
+        const savedMode = localStorage.getItem('uiMode') || 'normal';
+        setMode(savedMode);
+
+        function extractYouTubeID(url) {
+            const match = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=))([^"&?\/\s]{11})/i);
+            return match ? match[1] : null;
+        }
+
+        function saveAndPlayMusic() {
+            const link = document.getElementById('music-link-input').value.trim();
+            if (!link) return showInfoModal("Lỗi", "Vui lòng dán link YouTube hợp lệ!");
+            musicLink = link;
+            localStorage.setItem('musicLink', link);
+            playMusic();
+        }
+
+        function playMusic() {
+            stopMusic();
+            const id = extractYouTubeID(musicLink);
+            if (!id) return;
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&loop=1&playlist=${id}&controls=0`;
+            iframe.allow = 'autoplay';
+            iframe.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;';
+            document.body.appendChild(iframe);
+            currentMusicIframe = iframe;
+            document.getElementById('music-bar').style.display = 'flex';
+        }
+
+        function stopMusic() {
+            if (currentMusicIframe) {
+                currentMusicIframe.remove();
+                currentMusicIframe = null;
+            }
+            document.getElementById('music-bar').style.display = 'none';
+        }
+
+        function playSavedMusic() {
+            if (musicLink) playMusic();
+        }
+
+        function closeMusicConfirm() {
+            if (document.getElementById('dont-ask-music').checked) localStorage.setItem('dontAskMusic', 'true');
+            document.getElementById('music-confirm-modal').classList.remove('show');
+        }
+
+        function showMusicConfirm() {
+            if (musicLink && localStorage.getItem('dontAskMusic') !== 'true') {
+                document.getElementById('music-confirm-modal').classList.add('show');
+            }
+        }
+
+        function openImage(src) {
+            document.getElementById('modal-img').src = src;
+            document.getElementById('image-modal').classList.add('show');
+        }
+
+        document.getElementById('close-modal').onclick = () => document.getElementById('image-modal').classList.remove('show');
+
+        function showInfoModal(title, message) {
+            document.getElementById('modal-title').innerHTML = title;
+            document.getElementById('modal-message').innerHTML = message;
+            document.getElementById('info-modal').classList.add('show');
+        }
+
+        function closeInfoModal() {
+            document.getElementById('info-modal').classList.remove('show');
+        }
+
+        function closeNoDataModal() {
+            document.getElementById('no-data-modal').classList.remove('show');
+            location.reload();
+        }
+
+        async function startQuiz(mode) {
+            if (!currentSubject) return showInfoModal("Lỗi", "Vui lòng chọn môn trước!");
+
+            hideAllScreens();
+            document.getElementById('quiz-area').classList.remove('hidden');
+
+            currentMode = mode;
+            startTime = Date.now();
+            currentIndex = 0;
+
+            const hasData = await loadAndParseQuestions();
+            if (!hasData) {
+                document.getElementById('no-data-modal').classList.add('show');
+                return;
+            }
+
+            const tnQuestions = allQuestions.filter(q => q.type === 'TN' || q.type === 'TRACNGHIEM');
+            const dsQuestions = allQuestions.filter(q => q.type === 'DS' || q.type.includes('ĐS') || q.type === 'DUNGSAI');
+            const tlQuestions = allQuestions.filter(q => !tnQuestions.includes(q) && !dsQuestions.includes(q));
+
+            const selectedTN = getRandom50PercentByType(tnQuestions);
+            const selectedDS = getRandom50PercentByType(dsQuestions);
+            const selectedTL = getRandom50PercentByType(tlQuestions);
+
+            currentQuizQuestions = [...selectedTN, ...selectedDS, ...selectedTL].sort(() => Math.random() - 0.5);
+
+            if (currentQuizQuestions.length === 0) {
+                showInfoModal("Thông báo", "Không có câu hỏi nào khả dụng!");
+                location.reload();
+                return;
+            }
+
+            if (mode === 'practice') {
+                document.getElementById('practice-mode').classList.remove('hidden');
+                renderPracticeQuestions();
+            } else {
+                document.getElementById('challenge-mode').classList.remove('hidden');
+                showChallengeQuestion();
+            }
+
+            startTimer();
+        }
+
+        function renderOptions(q, idx, isChallenge = false) {
+            const shuffledQ = shuffleOptions(q);
+            let html = `<div class="flex flex-col gap-5 mt-6" data-correct="${shuffledQ.correct}">`;
+
+            shuffledQ.options.forEach((rawOpt, i) => {
+                let opt = rawOpt;
+                if (currentSubject === 'tieng-anh') {
+                    opt = rawOpt.replace(/\[underline\](.*?)\[\/underline\]/g, '<u>$1</u>');
+                }
+
+                let letter;
+                if (shuffledQ.type.includes('DS') || shuffledQ.type.includes('ĐS') || shuffledQ.type === 'DUNGSAI') {
+                    letter = i === 0 ? 'Đ' : 'S';
+                } else {
+                    const match = opt.match(/^([A-D])\.?\s*(.*)$/i);
+                    if (match) {
+                        letter = match[1].toUpperCase();
+                        opt = match[2].trim() || '(Nội dung trống)';
+                    } else {
+                        letter = String.fromCharCode(65 + i);
+                    }
+                }
+
+                html += `
+                    <label class="option min-h-[60px] items-start">
+                        <input type="radio" name="${isChallenge ? 'challenge_q' : 'q'+idx}" value="${i}">
+                        <span class="letter">${letter}.</span>
+                        <span class="flex-1">${opt}</span>
+                    </label>`;
+            });
+
+            html += `</div>`;
+            return html;
+        }
+
+        function renderPracticeQuestions() {
+            const container = document.getElementById('practice-questions');
+            container.innerHTML = '';
+
+            currentQuizQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+
+                let html = `<div class="question-num">Câu ${idx + 1}</div>`;
+                html += `<div class="question-text">${q.question}</div>`;
+
+                if (q.image) html += `<img src="${q.image}" class="question-image" onclick="openImage('${q.image}')">`;
+
+                if (q.options && q.options.length > 0) {
+                    html += renderOptions(q, idx, false);
+                } else {
+                    html += `<input type="text" name="q${idx}" class="w-full mt-6 p-5 border-2 rounded-xl text-lg focus:border-[var(--primary-color)]" placeholder="Nhập đáp án...">`;
+                }
+
+                html += `<div class="explanation hidden mt-8 text-base italic text-gray-700 border-l-4 border-gray-300 pl-5">${q.explain || '(không có giải thích)'}</div>`;
+                card.innerHTML = html;
+                container.appendChild(card);
+            });
+
+            document.getElementById('submit-practice').classList.remove('hidden');
+            document.getElementById('practice-result').classList.add('hidden');
+        }
+
+        document.getElementById('submit-practice').addEventListener('click', async () => {
+            let correctCount = 0;
+            let allAnswered = true;
+            const cards = document.querySelectorAll('#practice-questions .question-card');
+
+            currentQuizQuestions.forEach((q, idx) => {
+                const card = cards[idx];
+                const radio = card.querySelector(`input[name="q${idx}"]:checked`);
+                const textInput = card.querySelector(`input[name="q${idx}"]`);
+
+                if (q.options?.length && !radio) allAnswered = false;
+                if (!q.options?.length && textInput && !textInput.value.trim()) allAnswered = false;
+
+                let isCorrect = false;
+
+                if (q.options?.length) {
+                    const choiceIndex = radio ? parseInt(radio.value) : -1;
+                    const optionsContainer = card.querySelector('.flex.flex-col.gap-5.mt-6');
+                    const shuffledCorrect = parseInt(optionsContainer.dataset.correct);
+                    isCorrect = choiceIndex === shuffledCorrect;
+
+                    card.querySelectorAll('.option').forEach((label, i) => {
+                        if (i === shuffledCorrect) label.classList.add('bg-green-100', 'border-green-500');
+                        if (i === choiceIndex && !isCorrect) label.classList.add('bg-red-100', 'border-red-500');
+                        label.querySelector('input').disabled = true;
+                    });
+                } else if (textInput) {
+                    const userAns = textInput.value.trim().toLowerCase();
+                    const correctAns = String(q.correct).toLowerCase();
+                    isCorrect = userAns === correctAns;
+
+                    textInput.disabled = true;
+                    textInput.style.borderColor = isCorrect ? 'var(--success-color)' : 'var(--danger-color)';
+                }
+
+                card.querySelector('.explanation').classList.remove('hidden');
+                if (isCorrect) correctCount++;
+            });
+
+            if (!allAnswered) return showInfoModal("⚠️ Chưa hoàn thành", "Vui lòng trả lời tất cả câu hỏi!");
+
+            const score = Math.round((correctCount / currentQuizQuestions.length) * 10 * 100) / 100;
+
+            document.getElementById('practice-result').innerHTML = `
+                <h2 class="text-4xl font-bold text-[var(--primary-color)] mb-8">KẾT QUẢ</h2>
+                <div class="text-6xl font-extrabold mb-10">${correctCount} / ${currentQuizQuestions.length} câu đúng<br>
+                <span style="color:var(--success-color)">Điểm: ${score}</span></div>
+                <button onclick="location.reload()" class="submit-btn">Làm lại</button>
+            `;
+            document.getElementById('practice-result').classList.remove('hidden');
+            document.getElementById('submit-practice').classList.add('hidden');
+
+            stopTimer();
+        });
+
+        function showChallengeQuestion() {
+            if (currentIndex >= currentQuizQuestions.length) {
+                const timeTaken = Math.floor((Date.now() - startTime) / 1000);
+                document.getElementById('current-question').innerHTML = `
+                    <div class="text-4xl font-bold text-[var(--success-color)] mt-12 text-center">
+                        HOÀN THÀNH THỬ THÁCH! 🏆<br>
+                        <span class="text-2xl">Thời gian: ${timeTaken} giây</span>
+                    </div>
+                    <div class="flex gap-4 justify-center mt-12">
+                        <button onclick="location.reload()" class="submit-btn">Làm lại</button>
+                    </div>
+                `;
+                document.getElementById('submit-current').classList.add('hidden');
+                document.getElementById('next-question').classList.add('hidden');
+                document.getElementById('challenge-feedback').classList.remove('show');
+                stopTimer();
+                return;
+            }
+
+            const q = currentQuizQuestions[currentIndex];
+            document.getElementById('challenge-progress').textContent = `Câu ${currentIndex + 1} / ${currentQuizQuestions.length}`;
+
+            let html = `<div class="question-text">${q.question}</div>`;
+
+            if (q.image) html += `<img src="${q.image}" class="question-image" onclick="openImage('${q.image}')">`;
+
+            if (q.options && q.options.length > 0) {
+                html += renderOptions(q, null, true);
+            } else {
+                html += `<input type="text" id="challenge-answer" class="w-full mt-8 p-6 border-2 rounded-xl text-lg focus:border-[var(--primary-color)]" placeholder="Nhập đáp án...">`;
+            }
+
+            document.getElementById('current-question').innerHTML = html;
+            document.getElementById('submit-current').classList.remove('hidden');
+            document.getElementById('next-question').classList.add('hidden');
+            document.getElementById('challenge-feedback').classList.remove('show');
+        }
+
+        document.getElementById('submit-current').addEventListener('click', async () => {
+            const q = currentQuizQuestions[currentIndex];
+            let isCorrect = false;
+
+            if (q.options && q.options.length > 0) {
+                const selected = document.querySelector('input[name="challenge_q"]:checked');
+                if (!selected) return showInfoModal("Chưa chọn", "Vui lòng chọn đáp án!");
+                const choiceIndex = parseInt(selected.value);
+
+                const optionsContainer = document.querySelector('#current-question .flex.flex-col.gap-5.mt-6');
+                const shuffledCorrect = parseInt(optionsContainer ? optionsContainer.dataset.correct : '0');
+                isCorrect = choiceIndex === shuffledCorrect;
+
+                document.querySelectorAll('.option').forEach(label => {
+                    const i = parseInt(label.querySelector('input').value);
+                    if (i === shuffledCorrect) label.classList.add('bg-green-100', 'border-green-500');
+                    if (i === choiceIndex && !isCorrect) label.classList.add('bg-red-100', 'border-red-500');
+                    label.querySelector('input').disabled = true;
+                });
+            } else {
+                const input = document.getElementById('challenge-answer');
+                if (!input.value.trim()) return showInfoModal("Chưa nhập", "Vui lòng nhập đáp án!");
+                isCorrect = input.value.trim().toLowerCase() === String(q.correct).toLowerCase();
+                input.disabled = true;
+                input.style.borderColor = isCorrect ? 'var(--success-color)' : 'var(--danger-color)';
+            }
+
+            const feedback = document.getElementById('challenge-feedback');
+            let correctDisplay = q.options && q.options.length > 0 
+                ? (q.type.includes('DS') || q.type.includes('ĐS') ? (q.correct === 0 ? 'Đúng' : 'Sai') : String.fromCharCode(65 + q.correct))
+                : q.correct;
+
+            feedback.innerHTML = isCorrect
+                ? `<strong class="text-3xl">ĐÚNG RỒI 🎉</strong><br><div class="mt-4">${q.explain || '(không có giải thích)'}</div>`
+                : `<strong class="text-3xl text-[var(--danger-color)]">SAI RỒI 😞</strong><br>Đáp án đúng: ${correctDisplay}<br><div class="mt-4">${q.explain || '(không có giải thích)'}</div>`;
+
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'wrong'} show`;
+            document.getElementById('submit-current').classList.add('hidden');
+
+            if (!isCorrect) {
+                stopTimer();
+                feedback.innerHTML += `<br><br><button onclick="location.reload()" class="submit-btn mt-4 bg-red-600">Làm lại từ đầu</button>`;
+            } else {
+                document.getElementById('next-question').classList.remove('hidden');
+                currentIndex++;
+            }
+        });
+
+        document.getElementById('next-question').addEventListener('click', showChallengeQuestion);
+
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('quiz-area').classList.contains('hidden')) {
+                if (document.activeElement.tagName === 'INPUT' && document.activeElement.type === 'text') {
+                    return;
+                }
+
+                if (e.key === '1') {
+                    const option = document.querySelector('input[value="0"]');
+                    if (option) option.checked = true;
+                }
+                else if (e.key === '2') {
+                    const option = document.querySelector('input[value="1"]');
+                    if (option) option.checked = true;
+                }
+                else if (e.key === '3') {
+                    const option = document.querySelector('input[value="2"]');
+                    if (option) option.checked = true;
+                }
+                else if (e.key === '4') {
+                    const option = document.querySelector('input[value="3"]');
+                    if (option) option.checked = true;
+                }
+                else if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const submitBtnPractice = document.getElementById('submit-practice');
+                    const submitBtnCurrent = document.getElementById('submit-current');
+
+                    if (!submitBtnPractice.classList.contains('hidden')) {
+                        submitBtnPractice.click();
+                    } else if (!submitBtnCurrent.classList.contains('hidden')) {
+                        submitBtnCurrent.click();
+                    }
+                }
+            }
+        });
+
+        showMusicConfirm();
     </script>
 </body>
 </html>
