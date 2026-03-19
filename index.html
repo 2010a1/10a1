@@ -258,13 +258,14 @@
             e.key === 'F12' ||
             (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
             (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'c' || e.key === 'a')) ||
-            (e.keyCode === 123)
+            (e.keyCode === 123)  // F12
         ) {
             e.preventDefault();
             return false;
         }
     });
 
+    // Chặn chọn văn bản
     document.addEventListener('selectstart', e => e.preventDefault());
 </script>
 <script>
@@ -322,6 +323,15 @@
                     <input type="range" id="volume-slider" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-lg cursor-pointer">
                 </div>
             </div>
+            <button onclick="logout()" class="w-full mt-8 py-4 bg-gray-800 text-white rounded-2xl font-bold shadow">Đăng xuất (Xóa tên)</button>
+        </div>
+    </div>
+
+    <div class="modal" id="name-modal">
+        <div class="theme-selector max-w-md p-10">
+            <h3 class="text-3xl font-bold mb-6 text-[var(--primary-color)]">Nhập tên học sinh</h3>
+            <input type="text" id="name-input" class="w-full p-5 text-xl border rounded-xl mb-6" placeholder="Ví dụ: Nguyễn Văn A">
+            <button onclick="saveStudentName()" class="submit-btn">LƯU & BẮT ĐẦU</button>
         </div>
     </div>
 
@@ -343,7 +353,7 @@
     <div class="modal" id="no-data-modal">
         <div class="theme-selector max-w-md p-10 text-center">
             <h3 class="text-3xl font-bold mb-4 text-[var(--danger-color)]">Chưa có tài liệu ôn tập</h3>
-            <p class="mb-6">Môn này hiện chưa có câu hỏi.<br>Vui lòng thử lại sau!</p>
+            <p class="mb-6">Môn này hiện chưa có câu hỏi.<br>Vui lòng chọn môn khác!</p>
             <button onclick="closeNoDataModal()" class="submit-btn">Quay lại</button>
         </div>
     </div>
@@ -370,6 +380,7 @@
         <div class="card header mb-8">
             <h1>Azota - Ôn tập nhanh</h1>
             <small class="text-white/80 block">Học kỳ I - 2025-2026 © Anh Tú</small>
+            <div id="student-name-display" class="text-white/90 text-xl font-medium mt-3"></div>
         </div>
 
         <div id="home-screen" class="card mode-card">
@@ -379,9 +390,9 @@
 
         <div id="subject-selection" class="hidden card mode-card">
             <h2 class="text-3xl font-bold text-[var(--primary-color)] mb-8">Chọn môn học</h2>
-            <div class="grid grid-cols-1 gap-6 mb-12">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-12">
                 <button class="mode-btn" onclick="selectSubject('sinh-hoc')">
-                    <div class="text-5xl mb-3">📖</div>Đoàn đội
+                    <div class="text-5xl mb-3">📖</div>Đoàn Đội
                 </button>
             </div>
             <button onclick="location.reload()" class="text-gray-500 mt-6 block mx-auto">← Quay lại</button>
@@ -427,7 +438,7 @@
 
     <script>
         const SUBJECTS = {
-            "sinh-hoc": { name: "Đoàn đội", file: "https://raw.githubusercontent.com/2010a1/10a1/main/questions/doandoi.txt" }
+            "sinh-hoc": { name: "Đoàn đội", file: "https://raw.githubusercontent.com/2010a1/10a1/main/questions/doandoi.txt" },
         };
 
         let currentSubject = null;
@@ -437,11 +448,12 @@
         let currentIndex = 0;
         let startTime = 0;
         let timerInterval = null;
+        let studentName = localStorage.getItem('studentName') || '';
         let musicLink = localStorage.getItem('musicLink') || '';
         let currentMusicIframe = null;
 
         function getUsedKey(type) {
-            return `used_${currentSubject || 'default'}_${type}`;
+            return `used_${currentSubject || 'default'}_${type}_${studentName.replace(/\s+/g, '_').toLowerCase()}`;
         }
 
         function getRandom50PercentByType(typeQuestions) {
@@ -642,6 +654,28 @@
         const savedMode = localStorage.getItem('uiMode') || 'normal';
         setMode(savedMode);
 
+        if (studentName) {
+            document.getElementById('student-name-display').textContent = `Học sinh: ${studentName}`;
+        } else {
+            document.getElementById('name-modal').classList.add('show');
+        }
+
+        function saveStudentName() {
+            const name = document.getElementById('name-input').value.trim();
+            if (!name) return showInfoModal("Lỗi", "Vui lòng nhập tên!");
+            studentName = name;
+            localStorage.setItem('studentName', name);
+            document.getElementById('student-name-display').textContent = `Học sinh: ${name}`;
+            document.getElementById('name-modal').classList.remove('show');
+        }
+
+        function logout() {
+            if (confirm('Xóa tên và đăng xuất?')) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
         function extractYouTubeID(url) {
             const match = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=))([^"&?\/\s]{11})/i);
             return match ? match[1] : null;
@@ -715,6 +749,7 @@
 
         async function startQuiz(mode) {
             if (!currentSubject) return showInfoModal("Lỗi", "Vui lòng chọn môn trước!");
+            if (!studentName) return document.getElementById('name-modal').classList.add('show');
 
             hideAllScreens();
             document.getElementById('quiz-area').classList.remove('hidden');
@@ -756,40 +791,32 @@
             startTimer();
         }
 
-        function renderOptions(q, idx, isChallenge = false) {
-            const shuffledQ = shuffleOptions(q);
-            let html = `<div class="flex flex-col gap-5 mt-6" data-correct="${shuffledQ.correct}">`;
+function renderOptions(q, idx, isChallenge = false) {
+    const shuffledQ = shuffleOptions(q);
+    let html = `<div class="flex flex-col gap-5 mt-6" data-correct="${shuffledQ.correct}">`;
 
-            shuffledQ.options.forEach((rawOpt, i) => {
-                let opt = rawOpt;
-                if (currentSubject === 'tieng-anh') {
-                    opt = rawOpt.replace(/\[underline\](.*?)\[\/underline\]/g, '<u>$1</u>');
-                }
+    shuffledQ.options.forEach((rawOpt, i) => {
+        let opt = rawOpt.trim(); // loại bỏ khoảng trắng thừa
 
-                let letter;
-                if (shuffledQ.type.includes('DS') || shuffledQ.type.includes('ĐS') || shuffledQ.type === 'DUNGSAI') {
-                    letter = i === 0 ? 'Đ' : 'S';
-                } else {
-                    const match = opt.match(/^([A-D])\.?\s*(.*)$/i);
-                    if (match) {
-                        letter = match[1].toUpperCase();
-                        opt = match[2].trim() || '(Nội dung trống)';
-                    } else {
-                        letter = String.fromCharCode(65 + i);
-                    }
-                }
-
-                html += `
-                    <label class="option min-h-[60px] items-start">
-                        <input type="radio" name="${isChallenge ? 'challenge_q' : 'q'+idx}" value="${i}">
-                        <span class="letter">${letter}.</span>
-                        <span class="flex-1">${opt}</span>
-                    </label>`;
-            });
-
-            html += `</div>`;
-            return html;
+        let letter;
+        if (shuffledQ.type.includes('DS') || shuffledQ.type.includes('ĐS') || shuffledQ.type === 'DUNGSAI') {
+            letter = i === 0 ? 'Đ' : 'S';
+        } else {
+            // File doandoi.txt không có A/B/C/D ở đầu → luôn gán theo thứ tự hiển thị
+            letter = String.fromCharCode(65 + i); // A, B, C, D
         }
+
+        html += `
+            <label class="option min-h-[60px] items-start">
+                <input type="radio" name="${isChallenge ? 'challenge_q' : 'q'+idx}" value="${i}">
+                <span class="letter">${letter}.</span>
+                <span class="flex-1">${opt}</span>
+            </label>`;
+    });
+
+    html += `</div>`;
+    return html;
+}
 
         function renderPracticeQuestions() {
             const container = document.getElementById('practice-questions');
@@ -819,7 +846,7 @@
             document.getElementById('practice-result').classList.add('hidden');
         }
 
-        document.getElementById('submit-practice').addEventListener('click', async () => {
+        document.getElementById('submit-practice').addEventListener('click', () => {
             let correctCount = 0;
             let allAnswered = true;
             const cards = document.querySelectorAll('#practice-questions .question-card');
@@ -912,53 +939,60 @@
             document.getElementById('challenge-feedback').classList.remove('show');
         }
 
-        document.getElementById('submit-current').addEventListener('click', async () => {
-            const q = currentQuizQuestions[currentIndex];
-            let isCorrect = false;
+document.getElementById('submit-current').addEventListener('click', () => {
+    const q = currentQuizQuestions[currentIndex];
+    let isCorrect = false;
+    let shuffledCorrect; // sẽ dùng để hiển thị đúng chữ cái trên màn hình
 
-            if (q.options && q.options.length > 0) {
-                const selected = document.querySelector('input[name="challenge_q"]:checked');
-                if (!selected) return showInfoModal("Chưa chọn", "Vui lòng chọn đáp án!");
-                const choiceIndex = parseInt(selected.value);
+    if (q.options && q.options.length > 0) {
+        const selected = document.querySelector('input[name="challenge_q"]:checked');
+        if (!selected) return showInfoModal("Chưa chọn", "Vui lòng chọn đáp án!");
 
-                const optionsContainer = document.querySelector('#current-question .flex.flex-col.gap-5.mt-6');
-                const shuffledCorrect = parseInt(optionsContainer ? optionsContainer.dataset.correct : '0');
-                isCorrect = choiceIndex === shuffledCorrect;
+        const choiceIndex = parseInt(selected.value);
+        const optionsContainer = document.querySelector('#current-question .flex.flex-col.gap-5.mt-6');
+        shuffledCorrect = parseInt(optionsContainer.dataset.correct);
+        isCorrect = choiceIndex === shuffledCorrect;
 
-                document.querySelectorAll('.option').forEach(label => {
-                    const i = parseInt(label.querySelector('input').value);
-                    if (i === shuffledCorrect) label.classList.add('bg-green-100', 'border-green-500');
-                    if (i === choiceIndex && !isCorrect) label.classList.add('bg-red-100', 'border-red-500');
-                    label.querySelector('input').disabled = true;
-                });
-            } else {
-                const input = document.getElementById('challenge-answer');
-                if (!input.value.trim()) return showInfoModal("Chưa nhập", "Vui lòng nhập đáp án!");
-                isCorrect = input.value.trim().toLowerCase() === String(q.correct).toLowerCase();
-                input.disabled = true;
-                input.style.borderColor = isCorrect ? 'var(--success-color)' : 'var(--danger-color)';
-            }
-
-            const feedback = document.getElementById('challenge-feedback');
-            let correctDisplay = q.options && q.options.length > 0 
-                ? (q.type.includes('DS') || q.type.includes('ĐS') ? (q.correct === 0 ? 'Đúng' : 'Sai') : String.fromCharCode(65 + q.correct))
-                : q.correct;
-
-            feedback.innerHTML = isCorrect
-                ? `<strong class="text-3xl">ĐÚNG RỒI 🎉</strong><br><div class="mt-4">${q.explain || '(không có giải thích)'}</div>`
-                : `<strong class="text-3xl text-[var(--danger-color)]">SAI RỒI 😞</strong><br>Đáp án đúng: ${correctDisplay}<br><div class="mt-4">${q.explain || '(không có giải thích)'}</div>`;
-
-            feedback.className = `feedback ${isCorrect ? 'correct' : 'wrong'} show`;
-            document.getElementById('submit-current').classList.add('hidden');
-
-            if (!isCorrect) {
-                stopTimer();
-                feedback.innerHTML += `<br><br><button onclick="location.reload()" class="submit-btn mt-4 bg-red-600">Làm lại từ đầu</button>`;
-            } else {
-                document.getElementById('next-question').classList.remove('hidden');
-                currentIndex++;
-            }
+        // Tô màu đáp án
+        document.querySelectorAll('#current-question .option').forEach(label => {
+            const i = parseInt(label.querySelector('input').value);
+            if (i === shuffledCorrect) label.classList.add('bg-green-100', 'border-green-500');
+            if (i === choiceIndex && !isCorrect) label.classList.add('bg-red-100', 'border-red-500');
+            label.querySelector('input').disabled = true;
         });
+    } else {
+        // Nếu có câu tự luận (ít xảy ra ở file này)
+        const input = document.getElementById('challenge-answer');
+        if (!input.value.trim()) return showInfoModal("Chưa nhập", "Vui lòng nhập đáp án!");
+        isCorrect = input.value.trim().toLowerCase() === String(q.correct).toLowerCase();
+        input.disabled = true;
+        input.style.borderColor = isCorrect ? 'var(--success-color)' : 'var(--danger-color)';
+        shuffledCorrect = q.correct; // fallback
+    }
+
+    const feedback = document.getElementById('challenge-feedback');
+    let correctDisplay;
+    if (q.type.includes('DS') || q.type.includes('ĐS') || q.type === 'DUNGSAI') {
+        correctDisplay = (shuffledCorrect === 0 ? 'Đ' : 'S');
+    } else {
+        correctDisplay = String.fromCharCode(65 + shuffledCorrect); // A/B/C/D đúng với màn hình
+    }
+
+    feedback.innerHTML = isCorrect
+        ? `<strong class="text-3xl">ĐÚNG RỒI 🎉</strong><br><div class="mt-4">${q.explain || '(không có giải thích)'}</div>`
+        : `<strong class="text-3xl text-[var(--danger-color)]">SAI RỒI 😞</strong><br>Đáp án đúng: ${correctDisplay}<br><div class="mt-4">${q.explain || '(không có giải thích)'}</div>`;
+
+    feedback.className = `feedback ${isCorrect ? 'correct' : 'wrong'} show`;
+    document.getElementById('submit-current').classList.add('hidden');
+
+    if (!isCorrect) {
+        stopTimer();
+        feedback.innerHTML += `<br><br><button onclick="location.reload()" class="submit-btn mt-4 bg-red-600">Làm lại từ đầu</button>`;
+    } else {
+        document.getElementById('next-question').classList.remove('hidden');
+        currentIndex++;
+    }
+});
 
         document.getElementById('next-question').addEventListener('click', showChallengeQuestion);
 
@@ -997,6 +1031,12 @@
                 }
             }
         });
+
+        if (studentName) {
+            document.getElementById('student-name-display').textContent = `Học sinh: ${studentName}`;
+        } else {
+            document.getElementById('name-modal').classList.add('show');
+        }
 
         showMusicConfirm();
     </script>
