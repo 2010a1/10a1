@@ -1,0 +1,92 @@
+TN;Quốc gia khởi đầu trong cuộc cách mạng công nghiệp lần thứ nhất diễn ra vào giữa thế kỉ XVIII là;Anh|Mĩ|Đức|Pháp;1;;
+TN;Ở thế kỉ XVIII, những tiến bộ về kĩ thuật ở Anh chủ yếu diễn ra trong các ngành nào?;Dệt, luyện kim và phát minh máy móc|Ngành luyện kim, khai thác mỏ và dệt|Dệt, luyện kim và giao thông vận tải|Khai thác mỏ, dệt và giao thông vận tải;3;;
+TN;Thế kỉ XVIII, cách mạng công nghiệp lần thứ nhất diễn ra đầu tiên ở Anh, sau đó lan ra Châu Âu và khu vực nào sau đây?;Đông Nam Á|Đông Bắc Á|Nam Mỹ|Bắc Mỹ;4;;
+TN;Năm 1807, Rô-bớt Phơn-tơn đã chế tạo thành công;đầu máy xe lửa chạy trên đường ray đầu tiên|tàu thủy chạy chở khách chạy bằng hơi nước|máy kéo sợi chạy bằng sức nước|máy bay chạy bằng động cơ xăng;2;;
+TN;Phát minh nào trong cuộc cách mạng công nghiệp đã tạo tiền đề cho sự ra đời và phát triển của ô tô, máy bay và thúc đẩy ngành khai thác dầu mỏ?;Phương pháp nấu than cốc|Chế tạo ra hệ thống máy tự động|Phát minh động cơ đốt trong|Phương pháp luyện kim “put-đinh”;3;;
+TN;Những thành tựu cơ bản của Cách mạng công nghiệp lần thứ nhất là;đầu máy xe lửa|máy bay, ô tô|điện thoại|tàu thủy, máy bay;1;;
+TN;Giêm Oát là người đã phát minh ra;con thoi bay|máy dệt|máy hơi nước|đầu máy xe lửa;3;;
+TN;Thành tựu quan trọng nhất của Cách mạng công nghiệp lần thứ hai là;máy hơi nước và điện|động cơ đốt trong và ô tô|máy hơi nước và điện thoại|điện và động cơ đốt trong;4;;
+TN;“Ông vua xe hơi” nước Mỹ là ai?;Tô-mát Ê-đi-xơn|Hen-ri Pho|Can Ben|Hen-ri Bê-sê-mơ;2;;
+TN;Phát minh tạo bước chuyển căn bản trong sản xuất tư bản là;Động cơ đốt trong|Máy kéo sợi|Máy tính|Máy hơi nước;4;;
+TN;Thành tựu đã đưa con người bước sang thời đại;văn minh công nghiệp|văn minh nông nghiệp|văn minh thông tin|văn minh trí tuệ;1;;
+TN;Ý không đúng về máy hơi nước;thay lao động tay|tăng năng suất|khởi đầu CNH|biến Anh thành công xưởng;4;;
+TN;Không phải tác động của cách mạng công nghiệp cận đại;phát triển kinh tế|hình thành đô thị|ô nhiễm và bóc lột|thương mại điện tử;4;;
+TN;Không phải hệ quả tích cực;phát triển sản xuất|nhiều trung tâm CN|đổi mới nông nghiệp|giải quyết mâu thuẫn;4;;
+TN;Đặc trưng CMCN lần 1;hơi nước và cơ giới hóa|CNTT|điện|công nghệ số;1;;
+TN;Không đúng về kết quả CMCN;2 giai cấp|phát triển nông nghiệp|tăng năng suất|gây cách mạng tư sản;4;;
+TN;Bản chất CMCN;CNH|hình thành giai cấp|cơ khí hóa|nền tảng CNTB;3;;
+TN;CMCN lần 3 gọi là;cách mạng 4.0|kĩ thuật số|kĩ thuật|công nghệ;2;;
+TN;Thành tựu đầu tiên CMCN 3;robot|vệ tinh|tàu chiến|máy tính;4;;
+TN;Bước tiến CNTT;internet không dây|internet có dây|máy tính|vệ tinh;2;;
+TN;CMCN 4 gọi là;kĩ thuật số|CN nhẹ|kĩ thuật|4.0;4;;
+TN;CMCN 4 tập trung vào;số + IoT|vũ trụ|tự động|robot;1;;
+TN;Robot AI VN dùng cho;kinh tế|giáo dục|quân sự|CNTT;2;;
+TN;Dữ liệu lớn là;Cloud|AI|In 3D|Big Data;4;;
+TN;Chinh phục vũ trụ gắn với;Anh|Trung Quốc|Liên Xô|Ấn Độ;3;;
+TN;Không thuộc CMCN 4;internet|máy hơi nước|CNTT|máy tính;2;;
+TN;Thời đại hiện đại là;CN|NN|thông tin|siêu trí tuệ;3;;
+TN;Không phải thành tựu CMCN 3;AI|Internet|máy tính|vũ trụ;1;;
+TN;Giúp tăng năng suất;TĐH|Robot|cả 2|in 3D;3;;
+TN;Không đúng về CMCN 4;giảm lợi thế LĐ|tăng chênh lệch|chỉ ảnh hưởng KHKT|tội phạm công nghệ;3;;
+TN;Ứng dụng đô thị, thời trang;IoT|AI|in 3D|nano;3;;
+TN;Hạn chế CMCN 4;ô nhiễm|an ninh mạng|riêng tư|cả 2;4;;
+TN;Khó khăn CN VN;thiếu kỹ năng|bị thay thế|tăng FDI|giảm DN NN;2;;
+TN;Tôn giáo ĐNA từ;Tây|Trung|Nhật|Ấn;4;;
+TN;Giao thoa TQ;buôn bán + xâm lược|truyền đạo|chỉ buôn bán|thống trị;4;;
+TN;Đa dạng cư dân;ngôn ngữ|văn minh phong phú|xung đột|đồng nhất;2;;
+TN;Không phải lý do ảnh hưởng TQ;gần|xâm lược|di dân|truyền giáo CG;4;;
+TN;Ít ảnh hưởng Ấn Độ;giáo dục|tôn giáo|chính trị|nghệ thuật;1;;
+TN;Ảnh hưởng Nho giáo đầu tiên;Văn Miếu|thi cử|phổ biến|trung quân;1;;
+TN;ĐNA thống nhất trong đa dạng;văn hóa riêng|Ấn-TQ|bản địa + bản sắc|Đông-Tây;3;;
+TN;Giai đoạn VII-XV;hình thành|phát triển|rực rỡ|tiếp tục;3;;
+TN;Không thuộc tín ngưỡng;TN|phồn thực|thờ cúng|Phật-Nho;4;;
+TN;Ảnh hưởng Tây;kỹ thuật|chữ|kiến trúc|nghệ thuật;4;;
+TN;Không phải văn học dân gian;nguồn gốc|nông nghiệp|ca ngợi kỹ thuật|đời sống;3;;
+TN;Kiến trúc Phật giáo;Borobudur|Huế|Angkor|Mỹ Sơn;1;;
+TN;Nguy cơ ĐNA;mất bản sắc|đa dạng|tiếp nhận|học hỏi;3;;
+TN;Kinh tế Văn Lang;săn|lúa nước|thương|thủ công;2;;
+TN;Tổ chức;Vua-LH-LT-BCh;Vua-Quan;Vua-quý tộc;Vua-LH-LT-TT;4;;
+TN;Văn minh;Sông Hồng|Phù Nam|Sa Huỳnh|Trống đồng;1;;
+TN;Tiêu biểu;Trống đồng|Óc Eo|Khương Mỹ|Đồng Dương;1;;
+TN;Không phải cơ sở;TN|ảnh hưởng ngoài|phân hóa|đoàn kết;2;;
+TN;Không đúng vai trò;đầu tiên|bản sắc|giàu mạnh nhất|nền tảng;3;;
+
+DS;Cách mạng tư sản tạo điều kiện CMCN;Đúng;;
+DS;CMCN là cách mạng kỹ thuật;Đúng;;
+DS;Lan ra toàn thế giới;Sai;;
+DS;Có 4 CMCN cận đại;Sai;;
+
+DS;Văn hóa kết nối lần đầu;Sai;;
+DS;Xuất hiện lối sống CN;Đúng;;
+DS;Văn hóa phong phú;Đúng;;
+DS;Luôn tích cực;Sai;;
+
+DS;Đã có lối sống CN hiện đại;Sai;;
+DS;TĐH thay hoàn toàn người;Sai;;
+DS;Phân công sâu sắc;Đúng;;
+DS;Gây bất ổn;Đúng;;
+
+DS;Tác động hai mặt;Đúng;;
+DS;Đẩy mạnh toàn cầu hóa;Đúng;;
+DS;Đầy đủ tác động xấu;Sai;;
+DS;Cần du nhập văn hóa;Sai;;
+
+DS;Vai trò nước quan trọng;Đúng;;
+DS;Té nước là tín ngưỡng;Sai;;
+DS;Tất cả đều có;Sai;;
+DS;Có tương đồng văn hóa;Đúng;;
+
+DS;ĐNA biến mất;Sai;;
+DS;Do phương Tây;Sai;;
+DS;Ảnh hưởng hai mặt;Đúng;;
+DS;Sang hiện đại;Sai;;
+
+DS;Văn Lang trước Âu Lạc;Đúng;;
+DS;Là nhà nước độc lập;Đúng;;
+DS;Do chiến tranh;Sai;;
+DS;Văn Lang cao hơn;Sai;;
+
+DS;Thờ Mặt Trời là tôn giáo;Sai;;
+DS;Gắn nông nghiệp;Đúng;;
+DS;Cùng lúc nhà nước;Sai;;
+DS;Tín ngưỡng phong phú;Đúng;;
