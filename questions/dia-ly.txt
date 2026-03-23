@@ -1,0 +1,85 @@
+TN;Quy mô dân số của một quốc gia là;tổng số dân của quốc gia;số người trên diện tích đất;mật độ trung bình dân số;số dân quốc gia ở các nước;1;;
+TN;Dân số thế giới năm 2020 là khoảng;khoảng 6 tỉ người;khoảng 7 tỉ người;trên 7,8 tỉ người;trên 8,5 tỉ người;3;;
+TN;Nước có số dân đông nhất thế giới hiện nay (cập nhật 2025-2026: Ấn Độ vượt Trung Quốc);Hoa Kì;Liên bang Nga;Trung Quốc;Ấn Độ;4;;
+TN;Tỉ suất gia tăng dân số tự nhiên là;hiệu số giữa tỉ suất sinh và tỉ suất tử;tổng số giữa tỉ suất sinh và tỉ suất tử;hiệu số giữa người xuất cư, nhập cư;tổng số giữa người xuất cư, nhập cư;1;;
+TN;Gia tăng cơ học không có ảnh hưởng lớn đến vấn đề dân số của;quốc gia;các vùng;thế giới;khu vực;3;;
+TN;Tỉ số gia tăng dân số cơ học là;hiệu số giữa tỉ suất sinh và tỉ suất tử;tổng số giữa tỉ suất sinh và tỉ suất tử;hiệu số giữa tỉ suất xuất cư và nhập cư;tổng số giữa người xuất cư, nhập cư;3;;
+TN;Động lực phát triển dân số là;tỉ suất sinh thô;số người nhập cư;gia tăng tự nhiên;gia tăng cơ học;3;;
+TN;Cơ cấu sinh học của dân số gồm cơ cấu theo;lao động và giới tính;lao động và theo tuổi;tuổi và theo giới tính;tuổi và trình độ văn hoá;3;;
+TN;Cơ cấu xã hội của dân số gồm cơ cấu theo;giới tính và theo lao động;lao động và theo tuổi;trình độ văn hoá và theo giới tính;lao động và trình độ văn hoá;4;;
+TN;Tỉ số giới tính được tính bằng;số nam trên tổng dân;số nữ trên tổng dân;số nam trên số nữ;số nữ trên số nam;3;;
+TN;Nhân tố nào sau đây không ảnh hưởng đến cơ cấu theo giới tính?;Kinh tế;Thiên tai;Tuổi thọ;Chuyển cư;4;;
+TN;Nguyên nhân nào sau đây có tác động mạnh mẽ nhất làm cho ở các nước đang phát triển có nam nhiều hơn nữ?;Tuổi thọ;Tự nhiên;Kinh tế;Tập quán;4;;
+TN;Dân số của một quốc gia thường được phân ra các độ tuổi;0-15 tuổi, 16-64 tuổi, 65 tuổi trở lên;0-14 tuổi, 15-64 tuổi, 65 tuổi trở lên;0-14 tuổi, 15-65 tuổi, 66 tuổi trở lên;0-15 tuổi, 15-60 tuổi, 61 tuổi trở lên;2;;
+TN;Tiêu chí nào sau đây được sử dụng để thể hiện tình hình phân bố dân cư?;Quy mô số dân;Mật độ dân số;Cơ cấu dân số;Loại quần cư;2;;
+TN;Khu vực có mật độ dân số cao nhất thế giới hiện nay là;Tây Âu;Đông Á;Ca-ri-bê;Nam Âu;1;;
+TN;Khu vực có mật độ dân số thấp nhất thế giới hiện nay là;Trung Phi;Bắc Mỹ;châu Đại Dương;Trung - Nam Á;3;;
+TN;Phát biểu nào sau đây không đúng với đặc điểm của đô thị hoá?;Là một quá trình về văn hoá - xã hội;Quy mô và số lượng đô thị tăng nhanh;Tăng nhanh sự tập trung dân thành thị;Lối sống thành thị phổ biến rộng rãi;1;;
+TN;Hoạt động có tác động trực tiếp đến việc phát triển đô thị hoá là;công nghiệp;giao thông vận tải;du lịch;thương mại;1;;
+TN;Căn cứ vào nguồn gốc, nguồn lực có thể phân loại thành;Vị trí địa lí, kinh tế - xã hội, trong nước;Vị trí địa lí, tự nhiên, kinh tế - xã hội;Vị trí địa lí, kinh tế - xã hội, ngoài nước;Kinh tế - xã hội, trong nước, ngoài nước;2;;
+TN;Căn cứ vào phạm vi lãnh thổ, có thể phân chia thành nguồn lực;nội lực, ngoại lực;nội lực, lao động;ngoại lực, dân số;dân số, lao động;1;;
+TN;Nguồn lực nào sau đây tạo thuận lợi (hay khó khăn) trong việc tiếp cận giữa các vùng trong một nước?;Đất đai, biển;Vị trí địa lí;Khoa học;Lao động;2;;
+TN;Nguồn lực nào sau đây có vai trò quyết định đối với sự phát triển kinh tế của mỗi quốc gia?;Khoa học công nghệ;Đường lối chính sách;Tài nguyên thiên nhiên;Dân cư và lao động;2;;
+TN;Cơ cấu ngành kinh tế gồm các bộ phận nào sau đây?;Công nghiệp - xây dựng, dịch vụ và khu vực trong nước;Nông - lâm - ngư nghiệp, công nghiệp - xây dựng và dịch vụ;Nông - lâm - ngư nghiệp, khu vực ở trong nước và dịch vụ;Công nghiệp - xây dựng, dịch vụ và khu vực ngoài nước;2;;
+TN;Cơ cấu thành phần kinh tế gồm;khu vực kinh tế trong nước, công nghiệp - xây dựng, dịch vụ;khu vực có vốn đầu tư nước ngoài, nông - lâm - ngư nghiệp;khu vực kinh tế trong nước, khu vực có vốn đầu tư nước ngoài;khu vực có vốn đầu tư nước ngoài, công nghiệp - xây dựng;3;;
+TN;Cơ cấu lãnh thổ gồm;toàn cầu và khu vực, quốc gia, vùng;toàn cầu và khu vực, vùng, dịch vụ;công nghiệp - xây dựng, quốc gia;nông - lâm - ngư nghiệp, toàn cầu;1;;
+TN;Thành phần nào sau đây không được xếp vào cơ cấu thành phần kinh tế của một quốc gia?;Nhà nước;Ngoài Nhà nước;Khu vực có vốn đầu tư nước ngoài;Nông - lâm - ngư nghiệp;4;;
+TN;Đặc điểm nổi bật về cơ cấu ngành kinh tế của các nước phát triển là;nông - lâm - ngư nghiệp rất nhỏ, dịch vụ rất lớn;dịch vụ rất lớn, công nghiệp - xây dựng rất nhỏ;công nghiệp - xây dựng rất lớn, dịch vụ rất nhỏ;nông - lâm - ngư nghiệp rất lớn, dịch vụ rất nhỏ;1;;
+TN;Cây lương thực bao gồm;lúa gạo, lúa mì, ngô;lúa gạo, lúa mì, ngô, lạc;lúa gạo, lúa mì, ngô, đậu;lúa gạo, lúa mì, ngô, mía;1;;
+TN;Đặc điểm sinh thái của cây lúa gạo là ưa khí hậu;nóng, đất ẩm, nhiều mùn, dễ thoát nước;ấm, khô, đất đai màu mỡ, nhiều phân bón;nóng, ẩm, chân ruộng ngập nước, phù sa;nóng, thích nghi với sự dao động khí hậu;3;;
+TN;Đặc điểm sinh thái của cây lúa mì là ưa khí hậu;nóng, đất ẩm, nhiều mùn, dễ thoát nước;ấm, khô, đất đai màu mỡ, nhiều phân bón;nóng, ẩm, chân ruộng ngập nước, phù sa;nóng, thích nghi với sự dao động khí hậu;2;;
+TN;Khu vực châu Á gió mùa là nơi nổi tiếng về cây;lúa nước;lúa mì;ngô;khoai tây;1;;
+TN;Vai trò quan trọng của rừng đối với môi trường là;điều hòa lượng nước trên mặt đất;cung cấp lâm sản phục vụ sản xuất;cung cấp các dược liệu chữa bệnh;nguồn gen rất quý giá của tự nhiên;1;;
+TN;Loại rừng trồng nào sau đây hiện nay có diện tích lớn hơn cả?;Sản xuất;Phòng hộ;Đặc dụng;Khác;1;;
+TN;Nguồn thức ăn đối với chăn nuôi đóng vai trò;cơ sở;quyết định;tiền đề;quan trọng;2;;
+TN;Phần lớn thức ăn của ngành chăn nuôi đều lấy từ nguồn nào sau đây?;Tự nhiên;Trồng trọt;Công nghiệp;Thủy sản;2;;
+TN;Loại vật nuôi nào sau đây thuộc gia súc lớn?;Trâu;Lợn;Cừu;Dê;1;;
+TN;Loại vật nuôi phổ biến khắp nơi trên thế giới là;Gà;Lợn;Cừu;Bò;4;;
+TN;Trong nông nghiệp, trang trại là hình thức sản xuất;nhỏ;lớn;cơ sở;đi đầu;2;;
+TN;Đặc điểm của hình thức tổ chức lãnh thổ vùng nông nghiệp là;sản xuất nhằm thoả mãn nhu cầu tiêu dùng của gia đình;chủ yếu là sản xuất hàng hoá, quy mô đất đai và vốn lớn;ra đời dựa trên tinh thần tự nguyện của các hộ nông dân;gồm các địa phương tương tự nhau về điều kiện sinh thái;2;;
+TN;Vùng nông nghiệp không có ý nghĩa nào sau đây?;Làm cho phân bố nông nghiệp hợp lí;Cơ sở để hình thành vùng công nghiệp;Tạo vùng chuyên môn hoá nông nghiệp;Sản xuất phù hợp với điều kiện sinh thái;2;;
+DS;Cho bảng số liệu QUY MÔ DÂN SỐ THẾ GIỚI, GIAI ĐOẠN 1950 – 2050|a) Số dân của toàn thế giới giai đoạn 1950 – 2050 tăng liên tục;Đúng;https://i.ibb.co/jZWkSgcg/Screenshot-2026-03-23-204652.png;
+DS;Cho bảng số liệu QUY MÔ DÂN SỐ THẾ GIỚI, GIAI ĐOẠN 1950 – 2050|b) Phần lớn dân cư trên thế giới tập trung ở nhóm các nước phát triển;Sai;https://i.ibb.co/jZWkSgcg/Screenshot-2026-03-23-204652.png;
+DS;Cho bảng số liệu QUY MÔ DÂN SỐ THẾ GIỚI, GIAI ĐOẠN 1950 – 2050|c) Dân số thế giới năm 2020 gấp 4,12 lần dân số năm 1950;;Sai;https://i.ibb.co/jZWkSgcg/Screenshot-2026-03-23-204652.png;
+DS;Cho bảng số liệu QUY MÔ DÂN SỐ THẾ GIỚI, GIAI ĐOẠN 1950 – 2050|d) Để thể hiện quy mô dân số thế giới giai đoạn 1950 – 2050, biểu đồ thích hợp nhất là biểu đồ cột;Đúng;https://i.ibb.co/jZWkSgcg/Screenshot-2026-03-23-204652.png;
+
+DS;Cho đoạn thông tin sauDân số luôn là vấn đề được quan tâm hàng đầu của mỗi quốc gia vì nó tác động trực tiếp đến sự phát triển kinh tế - xã hội và môi trường. Dân số thế giới vẫn gia tăng hàng năm, đến tháng 11/2022 đã cán mốc 8 tỷ người. Các chỉ số gia tăng dân số luôn được các quốc gia thống kê và đo lường hàng năm.|a) Tỉ suất sinh thô là số trẻ em sinh ra trong năm so với dân số trung bình cùng thời điểm;Đúng;;
+DS;Cho đoạn thông tin về dân số thế giới : Dân số luôn là vấn đề được quan tâm hàng đầu của mỗi quốc gia vì nó tác động trực tiếp đến sự phát triển kinh tế - xã hội và môi trường. Dân số thế giới vẫn gia tăng hàng năm, đến tháng 11/2022 đã cán mốc 8 tỷ người. Các chỉ số gia tăng dân số luôn được các quốc gia thống kê và đo lường hàng năm.|b) Hiện nay trên thế giới, tỉ suất sinh thô và tỉ suất tử thô đều tăng nhanh;Sai;;
+DS;Cho đoạn thông tin về dân số thế giới : Dân số luôn là vấn đề được quan tâm hàng đầu của mỗi quốc gia vì nó tác động trực tiếp đến sự phát triển kinh tế - xã hội và môi trường. Dân số thế giới vẫn gia tăng hàng năm, đến tháng 11/2022 đã cán mốc 8 tỷ người. Các chỉ số gia tăng dân số luôn được các quốc gia thống kê và đo lường hàng năm.|c) Tỉ suất gia tăng dân số tự nhiên là tổng của tỉ suất sinh thô và tỉ suất tử thô;Sai;;
+DS;Cho đoạn thông tin về dân số thế giới : Dân số luôn là vấn đề được quan tâm hàng đầu của mỗi quốc gia vì nó tác động trực tiếp đến sự phát triển kinh tế - xã hội và môi trường. Dân số thế giới vẫn gia tăng hàng năm, đến tháng 11/2022 đã cán mốc 8 tỷ người. Các chỉ số gia tăng dân số luôn được các quốc gia thống kê và đo lường hàng năm.|d) Dân số thế giới tăng lên hay giảm đi là do sinh đẻ và tử vong;Đúng;;
+
+DS;Cho bảng số liệu TỈ SUẤT SINH THÔ VÀ TỬ THÔ CỦA NƯỚC TA, GIAI ĐOẠN 2010 – 2021|a) Tỉ suất sinh thô có xu hướng tăng;Sai;https://i.ibb.co/9HX58nvK/Screenshot-2026-03-23-205519.png;
+DS;Cho bảng số liệu TỈ SUẤT SINH THÔ VÀ TỬ THÔ CỦA NƯỚC TA, GIAI ĐOẠN 2010 – 2021|b) Tỉ suất tử thô có xu hướng ổn định năm 2021 giảm;Đúng;https://i.ibb.co/9HX58nvK/Screenshot-2026-03-23-205519.png;
+DS;Cho bảng số liệu TỈ SUẤT SINH THÔ VÀ TỬ THÔ CỦA NƯỚC TA, GIAI ĐOẠN 2010 – 2021|c) Gia tăng tự nhiên có xu hướng tăng;Sai;https://i.ibb.co/9HX58nvK/Screenshot-2026-03-23-205519.png;
+DS;Cho bảng số liệu TỈ SUẤT SINH THÔ VÀ TỬ THÔ CỦA NƯỚC TA, GIAI ĐOẠN 2010 – 2021|d) Gia tăng tự nhiên cao nhất năm 2010, thấp nhất năm 2018;Đúng;https://i.ibb.co/9HX58nvK/Screenshot-2026-03-23-205519.png;
+
+DS;Cho bảng số liệu DIỆN TÍCH VÀ DÂN SỐ CỦA MỘT SỐ TỈNH NĂM 2018|a. Mật độ dân số của Thái Bình cao hơn Kon Tum;Đúng;https://i.ibb.co/93vRQy1j/Screenshot-2026-03-23-205650.pn;
+DS;Cho bảng số liệu DIỆN TÍCH VÀ DÂN SỐ CỦA MỘT SỐ TỈNH NĂM 2018|b. Mật độ dân số của Phú Yên là 1812 người/km2;Sai;https://i.ibb.co/93vRQy1j/Screenshot-2026-03-23-205650.pn;
+DS;Cho bảng số liệu DIỆN TÍCH VÀ DÂN SỐ CỦA MỘT SỐ TỈNH NĂM 2018|c. Để thể hiện dân số và diện tích của một số địa phương của nước ta thì dùng biểu đồ tròn;Sai;https://i.ibb.co/93vRQy1j/Screenshot-2026-03-23-205650.pn;
+DS;Cho bảng số liệu DIỆN TÍCH VÀ DÂN SỐ CỦA MỘT SỐ TỈNH NĂM 2018|d. Diện tích của Thái Bình là rộng nhất;Sai;https://i.ibb.co/93vRQy1j/Screenshot-2026-03-23-205650.pn;
+
+DS;Cho thông tin về Nhật Bản : Nhật Bản là một quần đảo nằm giữa biển khơi, chịu ảnh hưởng nặng nề của thiên tai, nghèo tài nguyên nhưng với một quyết tâm cam, chiến lược phát triển đúng đắn, Nhật Bản đã vươn trở thành một cường quốc kinh tế. |a) Mỗi nguồn lực có vai trò nhất định đối với phát triển kinh tế Nhật Bản;Đúng;;
+DS;Cho thông tin về Nhật Bản : Nhật Bản là một quần đảo nằm giữa biển khơi, chịu ảnh hưởng nặng nề của thiên tai, nghèo tài nguyên nhưng với một quyết tâm cam, chiến lược phát triển đúng đắn, Nhật Bản đã vươn trở thành một cường quốc kinh tế. |b) Sự thành công của Nhật Bản là do nguồn lực kinh tế- xã hội;Đúng;;
+DS;Cho thông tin về Nhật Bản : Nhật Bản là một quần đảo nằm giữa biển khơi, chịu ảnh hưởng nặng nề của thiên tai, nghèo tài nguyên nhưng với một quyết tâm cam, chiến lược phát triển đúng đắn, Nhật Bản đã vươn trở thành một cường quốc kinh tế. |c) Để trở thành cường quốc kinh tế Nhật Bản đã có chính sách phát triển kinh tế đúng đắn;Đúng;;
+DS;Cho thông tin về Nhật Bản : Nhật Bản là một quần đảo nằm giữa biển khơi, chịu ảnh hưởng nặng nề của thiên tai, nghèo tài nguyên nhưng với một quyết tâm cam, chiến lược phát triển đúng đắn, Nhật Bản đã vươn trở thành một cường quốc kinh tế. |d) Các nguồn lực bên ngoài là nhân tố quyết định giúp kinh tế Nhật Bản phát triển nhanh;Sai;;
+
+DS;Cho bảng số liệu CƠ CẤU GDP CỦA THẾ GIỚI PHÂN THEO NGÀNH KINH TẾ, NĂM 2000 VÀ NĂM 2019|a) Ngành nông nghiệp, lâm nghiệp và thuỷ sản luôn chiếm tỉ trọng thấp nhất;Đúng;https://i.ibb.co/93vRQy1j/Screenshot-2026-03-23-205650.png;
+DS;Cho bảng số liệu CƠ CẤU GDP CỦA THẾ GIỚI PHÂN THEO NGÀNH KINH TẾ, NĂM 2000 VÀ NĂM 2019|b) Từ năm 2000 đến năm 2019, cơ cấu GDP của thế giới đang chuyển dịch theo hướng tăng tỉ trọng của ngành công nghiệp - xây dựng;Sai;https://i.ibb.co/93vRQy1j/Screenshot-2026-03-23-205650.png;
+DS;Cho bảng số liệu CƠ CẤU GDP CỦA THẾ GIỚI PHÂN THEO NGÀNH KINH TẾ, NĂM 2000 VÀ NĂM 2019|c) Năm 2019, tỉ trọng ngành dịch vụ lớn hơn tỉ trọng ngành công nghiệp - xây dựng;Đúng;https://i.ibb.co/93vRQy1j/Screenshot-2026-03-23-205650.png;
+DS;Cho bảng số liệu CƠ CẤU GDP CỦA THẾ GIỚI PHÂN THEO NGÀNH KINH TẾ, NĂM 2000 VÀ NĂM 2019|d) Từ năm 2000 đến năm 2019, tỉ trọng ngành nông nghiệp, lâm nghiệp và thuỷ sản giảm;Đúng;https://i.ibb.co/93vRQy1j/Screenshot-2026-03-23-205650.png;
+
+TL;Câu 1. Năm 2020, Hoa Kì có dân số là 331,5 triệu người và diện tích lãnh thổ là 9,8 triệu km². Tính mật độ dân số của Hoa Kì năm 2020 (đơn vị: người/km²) (làm tròn kết quả đến hàng đơn vị của người/km²).;Mật độ dân số = Dân số / Diện tích = 331 500 000 người / 9 800 000 km² ≈ 33,8265 người/km². Làm tròn đến hàng đơn vị: 34 người/km².;;
+
+TL;Câu 2. Cho bảng số liệu tỉ suất sinh thô và tỉ suất tử thô của một số nước năm 2020 (Đơn vị: ‰). Tính tỉ lệ gia tăng dân số tự nhiên của Bun-ga-ri năm 2020 (làm tròn đến 2 chữ số thập phân).;Tỉ suất gia tăng dân số tự nhiên (%) = (Tỉ suất sinh thô – Tỉ suất tử thô) / 10 = (9,0 – 15,4) / 10 = -6,4 / 10 = -0,64%. Kết quả: -0,64%.;;
+
+TL;Câu 3. Dựa vào bảng số liệu tỉ trọng GDP của Trung Quốc so với thế giới năm 2004. Tính tỉ trọng GDP của Trung Quốc so với thế giới năm 2004 (%).;Tỉ trọng (%) = (GDP Trung Quốc / GDP thế giới) × 100 = (1649,3 / 40887,8) × 100 ≈ 4,0337%. Làm tròn đến 2 chữ số thập phân: 4,03%.;;
+
+TL;Câu 4. Năm 2021, sản lượng lúa ở vùng Đồng bằng sông Cửu Long là 24 327,3 nghìn tấn, diện tích trồng lúa là 3 898,6 nghìn ha. Tính năng suất lúa của vùng Đồng bằng sông Cửu Long năm 2021 (đơn vị: tạ/ha) (làm tròn kết quả đến hàng thập phân thứ nhất của tạ/ha).;Năng suất (tạ/ha) = (Sản lượng tấn / Diện tích ha) × 10 = (24 327 300 tấn / 3 898 600 ha) × 10 ≈ 6,240 × 10 = 62,40 tạ/ha. Làm tròn đến hàng thập phân thứ nhất: 62,4 tạ/ha.;;
+
+TL;Câu 5. Gia tăng tự nhiên của dân số là gì? Hãy nêu khái niệm và công thức tính tỉ suất gia tăng dân số tự nhiên (%).;Gia tăng tự nhiên của dân số là sự chênh lệch giữa số người sinh ra và số người chết đi trong một năm, không tính đến di cư. Công thức: Tỉ suất gia tăng dân số tự nhiên (%) = (Tỉ suất sinh thô – Tỉ suất tử thô) / 10.;;
+
+TL;Câu 6. Hãy nêu công thức tính mật độ dân số và ý nghĩa của chỉ tiêu này.;Công thức: Mật độ dân số (người/km²) = Tổng số dân / Diện tích lãnh thổ (km²). Ý nghĩa: Thể hiện mức độ phân bố dân cư trên đơn vị diện tích, giúp đánh giá mức độ tập trung hoặc thưa thớt dân cư, từ đó định hướng quy hoạch đô thị, phát triển kinh tế - xã hội và sử dụng tài nguyên.;;
+
+TL;Câu 7. Hãy nêu công thức tính năng suất cây trồng (ví dụ năng suất lúa) và đơn vị thường dùng.;Công thức: Năng suất = Sản lượng thu hoạch / Diện tích gieo trồng. Đơn vị thường dùng: tạ/ha hoặc tấn/ha (đối với lúa). Ví dụ: Năng suất lúa (tạ/ha) = Sản lượng (tấn) / Diện tích (ha) × 10.;;
+
+TL;Câu 8. Tỉ trọng (%) trong cơ cấu kinh tế được tính như thế nào? Hãy nêu công thức chung.;Công thức tính tỉ trọng (%) = (Giá trị bộ phận / Giá trị tổng thể) × 100. Ví dụ: Tỉ trọng GDP của một ngành = (GDP ngành đó / Tổng GDP) × 100.;;
