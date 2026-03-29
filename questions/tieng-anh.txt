@@ -117,7 +117,7 @@ TN;Bring me the clock………………..is over there.;A.whom|B.which|C.whose|D
 TN;My friend, …………aunt is nurse, would like to be a doctor someday.;A.who|B.whom|C.which|D.whose;4;;
 TN;The dog, ………..tail I stepped on, bit me.;A.who|B.whose|C.which|D.whom;2;;
 TN;Please give this to the beggar…………….is at the door.;A.who|B.which|C.whom|D.whose;1;;
-TN;My father gave me the doll…………..I had been hoping for.;A.who|B.which|C.whom|D.which;2;;
+TN;My father gave me the doll…………..I had been hoping for.;A.who|B.which|C.whom|D.whose;2;;
 TN;Yesterday I met my friend…………….gave me a dog on my birthday.;A.who|B.whose|C.whom|D.which;1;;
 TN;Any boy………….disobeys the rules will be punished.;A.that|B.which|C.whom|D.who;4;;
 TN;The river from………….we get our water supply is nearly empty.;A.that|B.which|C.whom|D.where;2;;
