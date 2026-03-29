@@ -103,7 +103,7 @@ TL;Một vật khối lượng 10kg được kéo đều trên sàn nằm ngang 
 TL;Cầu thủ bóng đá người Bồ Đào Nha, Cristiano Ronaldo trong trận đấu gặp Porto ở Champions League đã thực hiện cú sút vào quả bóng khối lượng 450 g, quả bóng đạt tốc độ 102 km/h. Hãy tính động năng của quả bóng.;180,6;;
 TL;Một thiên thạch có khối lượng 2 tấn bay với tốc độ 100 km/s trong vũ trụ. Tính động năng của thiên thạch này.;10^13;;
 TL;Một ô tô có khối lượng 1,5 tấn đang chuyển động thẳng đều, trong 2 giờ xe đi được quãng đường 72 km. Tính động năng của ô tô.;75000;;
-TL;Một ô tô khối lượng 1,5 tấn đang chạy với tốc độ 36 km/h. Động năng của ô tô đã thay đổi một lượng bao nhiêu khi nó hãm phanh tới tốc độ 5 m/s.;-56250;;
+TL;Một ô tô khối lượng 1,5 tấn đang chạy với tốc độ 36 km/h. Động năng của ô tô đã thay đổi một lượng bao nhiêu khi nó hãm phanh tới tốc độ 5 m/s.;56250;;
 TL;Một vật có khối lượng 500 g đang chuyển động với vận tốc 54 km/h. Động năng của vật này có giá trị bao nhiêu Jun? (Kết quả làm tròn đến 1 chữ số sau dấu phẩy thập phân);56,3;;
 TL;Một viên đạn khối lượng 50g bay ngang với tốc độ không đổi 200 m/s. Viên đạn bay đến găm sâu vào khúc gỗ 4 cm. Độ lớn lực cản trung bình của khúc gỗ có giá trị bao nhiêu 10^3 Niu tơn? (Kết quả làm tròn đến 0 chữ số sau dấu phẩy thập phân);25;;
 TL;Một vật có khối lượng 500 g rơi tự do (không vận tốc đầu) từ độ cao h=100 m xuống đất, lấy g=10 m/s^2. Bỏ qua lực cản không khí. Động năng của vật sau khi vật đi được quãng đường 60 m là bao nhiêu J(Jun)?;300;;
