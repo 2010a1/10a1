@@ -125,7 +125,7 @@ TN;The boy…………father is in prison is my friend.;A.whom|B.who|C.whose|D.w
 TN;Do you know the driver………………took them to town last night?;A.which|B.whom|C.where|D.who;4;;
 TN;Anybody…………..is tired may leave.;A.whom|B.who|C.where|D.which;2;;
 TN;The cat …………tail is long does not belong to me.;A.whom|B.that|C.which|D.whose;4;;
-TN;All the people…………I met are very friendly.;A.who|B.whom|C.whose|D.that;1;;
+TN;All the people…………I met are very friendly.;A.who|B.whom|C.whose|D.that;4;;
 TN;We saw many soldiers and tanks…………..were moving to the front.;A.which|B.whose|C.that|D.who;3;;
 TN;He sees men, women, cat, dogs and cars…………….move around and round.;A.that|B.whose|C.which|D.who;1;;
 TN;He reads all the books………….he can borrow.;A.which|B.that|C.whom|D.who;2;;
