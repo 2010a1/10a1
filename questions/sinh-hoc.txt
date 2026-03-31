@@ -58,7 +58,7 @@ TN;Các tế bào toàn năng có khả năng nào sau đây?;Biệt hó
 TN;Tế bào trần là loại tế bào thực vật đã được loại bỏ;thành tế bào.|nhân tế bào.|ti thể.|lục lạp.;1;;
 TN;Các thành tựu chính của công nghệ tế bào động vật gồm (1) Tạo mô cơ quan thay thế (2) Tạo dòng tế bào và động vật chuyển gene (3) Nhân bản vô tính ở động vật;(1) và (2).|(1) và (3).|(2) và (3).|(1) (2) và (3).;4;;
 TN;Cừu Dolly sẽ có vật chất di truyền giống với;cừu cho nhân.|cừu cho nhân và cừu cho trứng.|cừu cho nhân và cừu mang thai hộ.|cừu cho trứng và cừu mang thai hộ.;1;https://i.ibb.co/1GWzXqx1/b16c16.png;
-TN;Số ứng dụng tạo được giống mới là;1.|2.|3.|4.;1;;
+TN;(1) Vi nhân giống		(2) Dung hợp tế bào trần	(3) Cấy truyền phôi		(4) Nhân bản vô tính , Số ứng dụng tạo được giống mới là;1.|2.|3.|4.;1;;
 TN;Kĩ thuật nào của công nghệ tế bào thường được áp dụng nhằm nhân nhanh số lượng lớn cây?;Nhân bản vô tính.|Nuôi cấy mô tế bào.|Lai tế bào sinh dưỡng.|Nuôi cấy hạt phấn hoặc noãn chưa thụ tinh.;2;;
 TN;Phát biểu nào sau đây là đúng khi nói về cừu Dolly?;Cừu Dolly được tạo ra nhờ công nghệ tế bào thực vật.|Cừu Dolly không có bố.|Cừu Dolly có kiểu gene giống hệt cừu cho trứng.|Cừu Dolly không có đặc điểm nào giống cừu cho nhân.;2;;
 TN;Sự kiện quan trọng nhất của quá trình giảm phân giúp tạo ra sự biến dị di truyền là;Sự tiếp hợp và trao đổi chéo ở kì đầu I.|Sự nhân đôi DNA ở pha S của kì trung gian.|Sự phân chia của tế bào chất ở kì cuối II.|Sự co xoắn của nhiễm sắc thể ở kì đầu II.;1;;
